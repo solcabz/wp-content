@@ -74,12 +74,13 @@
     flex-direction: column; /* Stack items vertically */
     gap: 10px; /* Adjust spacing between the items */
     align-items: flex-start; /* Align items to the start */
+    width: 304px;
 }
 
 .privacy-terms label {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 5px; /* Adjust spacing between checkbox and text */
     font-size: 14px; /* Adjust font size if needed */
     width: 100%;

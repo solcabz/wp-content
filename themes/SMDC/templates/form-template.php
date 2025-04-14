@@ -44,16 +44,19 @@
                     <label for="message">Message</label>
                     <textarea id="message" name="message" class="form-control" rows="4" required></textarea>
                 </div>
-                <div class="privacy-terms">
-                    <label>
-                        <input type="checkbox" name="privacy_policy" required>
-                        I have read the <a href="/privacy-policy" target="_blank">Privacy Policy</a>.
-                    </label>
-                    <label>
-                        <input type="checkbox" name="terms_conditions" required>
-                        I agree to the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a>.
-                    </label>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="privacy-terms">
+                        <label>
+                            <input type="checkbox" name="privacy_policy" required>
+                            I have read the <a href="/privacy-policy" target="_blank">Privacy Policy</a>.
+                        </label>
+                        <label>
+                            <input type="checkbox" name="terms_conditions" required>
+                            I agree to the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a>.
+                        </label>
+                    </div>
                 </div>
+               
                 <!-- Google reCAPTCHA -->
                 <div class="g-recaptcha" data-sitekey="6LfSuRcrAAAAAEJzNucLpRKth4SDW_hkqUWhgnvE"></div>
                 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
