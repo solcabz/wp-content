@@ -1,0 +1,28 @@
+/*
+    Theme Name: SMDC
+    Author: Sol Cabreza
+    Description: SMDC Rebranding
+    version:2.1
+*/
+
+@font-face {
+    font-family: 'smFont';
+    src: url('./assets/fonts/HENRYSANS-REGULAR.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'smFontLight';
+    src: url('./assets/fonts/HENRYSANS-LIGHT.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'SansCondFont';
+    src: url('./assets/fonts/OpenSans_Condensed-SemiBold.TTF') format('truetype');
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'smFont', sans-serif;
+    box-sizing: border-box;
+}

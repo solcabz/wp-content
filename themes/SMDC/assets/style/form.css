@@ -1,0 +1,127 @@
+.inquire-section {
+    padding: 50px 20px;
+}
+
+.inquire-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.inquire-section p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.inquire-wrapper{
+    border-right: 2px solid #333;
+}
+
+.inquire-form, .appointment-form {
+    background: #fff;
+    padding: 20px;
+}
+
+.inquire-form label, .appointment-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.inquire-form input, .appointment-form input,
+.inquire-form select, .appointment-form select,
+.inquire-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 4px;
+}
+
+.inquire-form button, .appointment-form button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.inquire-form button:hover, .appointment-form button:hover {
+    background-color: #555;
+}
+
+.text-center button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.text-center button:hover {
+    background-color: #555;
+}
+
+.item-row {
+    display: flex;
+    flex-direction: start;
+}
+
+.privacy-terms {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 10px; /* Adjust spacing between the items */
+    align-items: flex-start; /* Align items to the start */
+}
+
+.privacy-terms label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Adjust spacing between checkbox and text */
+    font-size: 14px; /* Adjust font size if needed */
+    width: 100%;
+}
+
+.privacy-terms label input[type=checkbox] {
+    width: 20px;
+    height: 20px; /* Ensure consistent size */
+    padding: 0;
+    margin: 0;
+    background-color: #D9D9D9; /* Set the desired background color */
+    accent-color: #0030FF; /* Set the accent color for supported browsers */
+    appearance: none; /* Remove default checkbox styling */
+    border: 1px solid #333; /* Add a border for better visibility */
+    border-radius: 4px; /* Optional: make it rounded */
+    position: relative; /* Required for pseudo-element positioning */
+    cursor: pointer;
+}
+
+.privacy-terms label input[type=checkbox]:checked {
+    background-color: #0030FF; /* Change background when checked */
+    border-color: #0030FF; /* Optional: match border color */
+}
+
+.privacy-terms label input[type=checkbox]::after {
+    content: ''; /* Add custom checkmark */
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 10px;
+    height: 10px;
+    background-color: #fff; /* Color of the checkmark */
+    display: none; /* Hidden by default */
+    border-radius: 2px; /* Optional: rounded checkmark */
+}
+
+.privacy-terms label input[type=checkbox]:checked::after {
+    display: block; /* Show checkmark when checked */
+}
+
+.g-recaptcha{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
