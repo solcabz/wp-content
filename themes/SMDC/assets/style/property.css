@@ -117,8 +117,10 @@
   }
 
   .property-card button{
+    width: 160px;
     height: 44px;
     border: none;
+    font-size: 14px;
     transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
   }
 
@@ -170,8 +172,11 @@
     height: 40px;
     border: none !important;
     background: #D9D9D9;
+    color:#363636;
+    font-size: 14px;
     transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
   }
+
   .slide-info button:hover{
     background: #0030FF;
     color: #D9D9D9;
