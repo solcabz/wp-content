@@ -1,5 +1,5 @@
 .inquire-section {
-    padding: 50px 20px;
+    background: #EFEFEF;
 }
 
 .inquire-section h2 {
@@ -15,10 +15,10 @@
 
 .inquire-wrapper{
     border-right: 2px solid #333;
+    padding-right: 25px;
 }
 
 .inquire-form, .appointment-form {
-    background: #fff;
     padding: 20px;
 }
 
@@ -38,29 +38,20 @@
     border-radius: 4px;
 }
 
-.inquire-form button, .appointment-form button {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.inquire-form button:hover, .appointment-form button:hover {
-    background-color: #555;
-}
-
-.text-center button {
-    background-color: #333;
+.smbt-btn{
+    background-color: #363636;
+    padding: 0 15px;
+    width: 216px;
     color: #fff;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .text-center button:hover {
-    background-color: #555;
+    background-color: #0030FF;
+    color: #fff;
 }
 
 .item-row {

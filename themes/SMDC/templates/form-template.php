@@ -5,8 +5,8 @@
 */
 ?>
 
-<section class="inquire-section container-lg py-5">
-    <div class="row">
+<section class="inquire-section ">
+    <div class="d-flex flex-row gap-5 container-xl py-5">
         <!-- Inquire Now -->
         <div class="inquire-wrapper col-lg-6 col-md-12 mb-4">
             <h2>Inquire Now</h2>
@@ -81,15 +81,17 @@
                 }
                 ?>
 
-                <button type="submit" class="btn btn-dark">Submit</button>
+                <div class="text-center mt-2">
+                    <button type="submit" class="smbt-btn">Submit</button>
+                </div>
             </form>
         </div>
 
         <!-- Set An Appointment -->
-        <div class="col-lg-6 col-md-12 mb-4">
+        <div class="col-lg-8 col-md-12 mb-4">
             <h2>Set An Appointment</h2>
             <p>Lorem ipsum odor amet, consectetuer adipiscing elit.</p>
-            <form action="#" method="post" class="appointment-form">
+            <form action="thank-you.php" method="post" class="appointment-form">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="select-date">Select a Date</label>
@@ -101,27 +103,31 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="appointment-name">Name</label>
                         <input type="text" id="appointment-name" name="appointment_name" class="form-control" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="appointment-contact">Contact Number</label>
                         <input type="text" id="appointment-contact" name="appointment_contact" class="form-control" required>
                     </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="appointment-email">Email Address</label>
+                        <input type="email" id="appointment-email" name="appointment_email" class="form-control" required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="appointment-email">Email Address</label>
-                    <input type="email" id="appointment-email" name="appointment_email" class="form-control" required>
+               
+                <div class="text-center mt-2">
+                    <button type="submit" class="smbt-btn">Submit</button>
                 </div>
-                <button type="submit" class="btn btn-dark">Submit</button>
             </form>
 
             <div class="text-center mt-5">
                 <h2>Chat Now</h2>
                 <p>Lorem ipsum odor amet, consectetuer adipiscing elit.</p>
-                <button class="btn btn-dark">Chat Now</button>
+                <button class="smbt-btn">Chat Now</button>
             </div>
+            
         </div>
     </div>
 </section>
