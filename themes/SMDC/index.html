@@ -1,0 +1,130 @@
+<style>
+  .hover-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .image-section {
+    flex: 1; /* Default flex size */
+    height: 420px;
+    overflow: hidden;
+    position: relative;
+    transition: flex 0.5s ease-in-out; /* Smooth transition for resizing */
+  }
+
+  .image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .image-section.left img {
+    transform: translateX(-50%);
+  }
+
+  .image-section.right img {
+    transform: translateX(50%);
+  }
+
+  .image-section:hover img {
+    transform: translateX(0);
+  }
+
+  /* Hover effect for resizing */
+  .hover-container:hover .image-section {
+    flex: 0.3; /* Shrink non-hovered sections */
+  }
+
+  .image-section.left:hover {
+    flex: 0.5; /* Expand left section on hover */
+  }
+
+  .image-section.right:hover {
+    flex: 0.5; /* Expand right section on hover */
+  }
+
+  .text-center-section {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 12;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  /* Fade out center text on hover */
+  .hover-container:hover .text-center-section {
+    opacity: 0;
+  }
+
+  /* Title and paragraph for left section */
+  .left-content,
+  .right-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    text-align: center;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .left-content {
+    left: 10%;
+  }
+
+  .right-content {
+    right: 10%;
+  }
+
+  /* Show content on hover */
+  .image-section.left:hover ~ .left-content {
+    opacity: 1;
+  }
+
+  .image-section.right:hover ~ .right-content {
+    opacity: 1;
+  }
+</style>
+
+<div class="hover-container">
+  <!-- Left Image Section -->
+  <div class="image-section left">
+    <img src="https://c4.wallpaperflare.com/wallpaper/339/998/542/space-landscape-planet-1920-x-1080-wallpaper-preview.jpg" alt="Left Image">
+  </div>
+
+  <!-- Center Vision & Mission Text -->
+  <div class="text-center-section">
+    <h2 class="">Vision</h2>
+    <h2 class="">&</h2>
+    <h2 class="">Mission</h2>
+  </div>
+
+  <!-- Right Image Section -->
+  <div class="image-section right">
+    <img src="https://c4.wallpaperflare.com/wallpaper/339/998/542/space-landscape-planet-1920-x-1080-wallpaper-preview.jpg" alt="Right Image">
+  </div>
+
+  <!-- Left Content -->
+  <div class="left-content">
+    <h2>Left Title</h2>
+    <p>This is the description for the left side.</p>
+  </div>
+
+  <!-- Right Content -->
+  <div class="right-content">
+    <h2>Right Title</h2>
+    <p>This is the description for the right side.</p>
+  </div>
+</div>

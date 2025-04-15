@@ -121,13 +121,6 @@
                     <button type="submit" class="smbt-btn">Submit</button>
                 </div>
             </form>
-
-            <div class="text-center mt-5">
-                <h2>Chat Now</h2>
-                <p>Lorem ipsum odor amet, consectetuer adipiscing elit.</p>
-                <button class="smbt-btn">Chat Now</button>
-            </div>
-            
         </div>
     </div>
 </section>
