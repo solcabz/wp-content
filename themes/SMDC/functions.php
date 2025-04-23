@@ -61,5 +61,12 @@ function enqueue_recaptcha_script() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_recaptcha_script');
 
+add_filter('document_title_separator', function() {
+    return '-';
+});
 
-require_once get_template_directory() . '/theme-settings.php';
+add_theme_support('title-tag');
+
+
+
+require_once get_template_directory() . '/theme-settings.php';require_once get_template_directory() . '/theme-settings.php';

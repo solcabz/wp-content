@@ -16,59 +16,27 @@
 <body>
 <?php get_header(); ?>
 
-<?php while ( have_posts() ) : the_post(); ?>
+<?php if ( have_rows('About_Page_Modules') ): ?>
+    <?php while ( have_rows('About_Page_Modules') ): the_row(); ?>
+        <?php 
+                if ( get_row_layout() == 'about_hero' ): 
+                    $about_banner = get_sub_field('about_banner');
+        ?>
+            <!-- Hero Projects -->
+            <section class="property-wrapper d-flex justify-content-end align-items-center flex-column" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 55%), url('<?php echo esc_url(is_array($about_banner) ? $about_banner['url'] : $about_banner); ?>');">
 
-    <?php 
-    if ( have_rows('About_Module') ): // Check if the flexible content field has rows
-        while ( have_rows('About_Module') ): the_row();
-            
-            if ( get_row_layout() == 'about_hero' ): 
-                $about_banner = get_sub_field('about_banner');
-    ?>
-
-<!-- hero about -->
-<section class="property-wrapper d-flex justify-content-end align-items-center flex-column" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 55%), url('<?php echo esc_url(is_array($about_banner) ? $about_banner['url'] : $about_banner); ?>');>
-
-</section>
-
-<!-- Vision & Mission -->
-<section class="">
-
-</section>
-
-<!-- Values -->
-<section class="">
-
-</section>
-
-<!-- story -->
-<section class="">
-
-</section>
-
-<!-- Executive -->
-<section class="">
-
-</section>
-
-<!-- Awards Citation -->
-<section class="">
-
-</section>
+            </section>
+        <?php endif ?>
+        <!-- End Hero Projects -->    
+        <?php if ( get_row_layout() == 'awards_listing' ): ?>
+            <?php get_template_part('templates/about', 'awards'); ?>
+        <?php endif; ?>
+    <?php endwhile; ?>
+<?php endif; ?>
 
 <?php get_template_part('templates/form', 'template'); ?>
-
-<?php 
-            endif; // End layout check
-        endwhile; // End flexible content loop
-    else: 
-    ?>
-        <p>No content available.</p>
-  <?php endif; ?>
-
-
-
-<?php endwhile; // end of the loop. ?>
-
 <?php get_footer(); ?>
 <?php wp_footer(); ?>
+
+</body>
+</html>
