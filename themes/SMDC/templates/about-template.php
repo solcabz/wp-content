@@ -27,10 +27,12 @@
 
             </section>
         <?php endif ?>
+
         <!-- End Hero Projects -->    
         <?php if ( get_row_layout() == 'awards_listing' ): ?>
             <?php get_template_part('templates/about', 'awards'); ?>
         <?php endif; ?>
+        
     <?php endwhile; ?>
 <?php endif; ?>
 
