@@ -6,7 +6,7 @@
 ?>
 
 <section class="inquire-section ">
-    <div class="d-flex flex-row gap-5 container-xl py-5">
+    <div class="mobile-flex d-flex gap-5 container-xl py-5">
         <!-- Inquire Now -->
         <div class="inquire-wrapper col-lg-6 col-md-12 mb-4">
             <h2>Inquire Now</h2>

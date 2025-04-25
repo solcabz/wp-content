@@ -1,6 +1,6 @@
 
 .hero-banner {
-    height: 100vh;
+    height: 100dvh;
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -260,7 +260,7 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+@media ( width <= 768px) {
     .hero-banner h1{
         font-size: 50px;
     }

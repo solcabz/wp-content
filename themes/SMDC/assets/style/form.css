@@ -8,6 +8,9 @@
     margin-bottom: 15px;
 }
 
+.mobile-flex{
+    flex-direction: row;
+}
 .inquire-section p {
     font-size: 16px;
     margin-bottom: 20px;
@@ -115,4 +118,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 780px) {
+    .mobile-flex{
+        flex-direction: column; /* Switch to column layout */
+        gap: 20px; /* Adjust gap for column layout */
+    }
 }

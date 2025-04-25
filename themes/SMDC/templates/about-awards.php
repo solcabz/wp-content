@@ -20,10 +20,14 @@
                                 <?php while ( have_rows('awards') ): the_row(); ?>
                                     <div class="award-item">
                                         <div class="award-content">
-                                            <p class="award-year"><?php echo esc_html(get_sub_field('award_year')); ?></p>
-                                            <h4 class="award-title"><?php echo esc_html(get_sub_field('award_title')); ?></h4>
-                                            <p class="award-description"><?php echo esc_html(get_sub_field('award_description')); ?></p>
-                                            <p class="awarded-by">Awarded By: <?php echo esc_html(get_sub_field('awarded_by')); ?></p>
+                                            <div>
+                                                <p class="award-year"><?php echo esc_html(get_sub_field('award_year')); ?></p>
+                                                <h4 class="award-title"><?php echo esc_html(get_sub_field('award_title')); ?></h4>
+                                            </div>
+                                            <div class="lower-content">
+                                                <p class="award-description"><?php echo esc_html(get_sub_field('award_description')); ?></p>
+                                                <p class="awarded-by">Awarded By: <?php echo esc_html(get_sub_field('awarded_by')); ?></p>
+                                            </div>
                                         </div>
                                         <?php if ( $hover_image = get_sub_field('hover_image') ): ?>
                                             <div class="hover-image">

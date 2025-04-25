@@ -16,7 +16,7 @@
                 $hero_title = get_sub_field('title-banner');
     ?>
                 <!-- Hero Banner Section -->
-                <section class="hero-banner position-relative overflow-hidden" style="min-height: 100vh;">
+                <section class="hero-banner position-relative overflow-hidden" style="min-height: 100dvh;">
                     <!-- Background Video -->
                     <video autoplay muted loop playsinline id="myVideo" 
                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; ">

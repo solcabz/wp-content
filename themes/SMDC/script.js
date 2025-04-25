@@ -5,16 +5,18 @@ document.getElementById('menu-toggle').addEventListener('click', function() {
 function showTabContent(tab) {
     const tabs = document.querySelectorAll('.tab-title');
     const contents = document.querySelectorAll('.tab-content');
-    
+
     tabs.forEach(t => t.classList.remove('active'));
-    contents.forEach(c => c.style.display = 'none');
-    
     tab.classList.add('active');
+
+    contents.forEach(c => c.classList.remove('active'));
+
     const index = Array.from(tabs).indexOf(tab);
-    contents[index].style.display = 'block';
+    if (contents[index]) {
+        contents[index].classList.add('active');
+    }
 }
 
-// Show the first tab by default
 document.addEventListener('DOMContentLoaded', () => {
     const firstTab = document.querySelector('.tab-title');
     if (firstTab) {
