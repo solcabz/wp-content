@@ -27,7 +27,7 @@
     document.getElementById("cookie-notice").style.display = "none";
 
     // ✅ Load Meta Pixel after user accepts
-    loadMetaPixel();
+   
   }
 
   // Check if cookie is set
@@ -36,6 +36,6 @@
       document.getElementById("cookie-notice").style.display = "block";
     } else {
       // ✅ Load Meta Pixel automatically if cookie already set
-      loadMetaPixel();
+     
     }
   });

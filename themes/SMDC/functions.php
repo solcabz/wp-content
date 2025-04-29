@@ -67,6 +67,20 @@ add_filter('document_title_separator', function() {
 
 add_theme_support('title-tag');
 
+add_action('wp_ajax_load_award_page', 'load_award_page');
+add_action('wp_ajax_nopriv_load_award_page', 'load_award_page');
 
+function load_award_page() {
+    if (isset($_GET['tab']) && isset($_GET['page'])) {
+        $tab = intval($_GET['tab']);
+        $page = intval($_GET['page']);
+        
+        // Fetch and display the awards for the given tab and page
+        // Use similar logic to what you already have, but only for the requested tab/page
+        // Send back the generated content
+        echo get_award_content_for_tab_page($tab, $page);
+    }
+    wp_die(); // Important to terminate the request properly
+}
 
 require_once get_template_directory() . '/theme-settings.php';require_once get_template_directory() . '/theme-settings.php';

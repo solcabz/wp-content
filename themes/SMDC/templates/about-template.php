@@ -27,7 +27,7 @@
 
             </section>
         <?php endif ?>
-
+       
         <!-- End Hero Projects -->    
         <?php if ( get_row_layout() == 'awards_listing' ): ?>
             <?php get_template_part('templates/about', 'awards'); ?>
@@ -35,6 +35,9 @@
         
     <?php endwhile; ?>
 <?php endif; ?>
+            
+<?php get_template_part('templates/goodlife', 'section'); ?>    
+<?php get_template_part('templates/goodguy', 'values'); ?>    
 
 <?php get_template_part('templates/form', 'template'); ?>
 <?php get_footer(); ?>
