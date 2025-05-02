@@ -18,27 +18,28 @@
 
 <?php if ( have_rows('About_Page_Modules') ): ?>
     <?php while ( have_rows('About_Page_Modules') ): the_row(); ?>
-        <?php 
-                if ( get_row_layout() == 'about_hero' ): 
-                    $about_banner = get_sub_field('about_banner');
-        ?>
+        <?php if ( get_row_layout() == 'about_hero' ): ?>
+            <?php 
+                $about_banner = get_sub_field('about_banner');
+            ?>
             <!-- Hero Projects -->
             <section class="property-wrapper d-flex justify-content-end align-items-center flex-column" style="background-image: url('<?php echo esc_url(is_array($about_banner) ? $about_banner['url'] : $about_banner); ?>');">
-
             </section>
-        <?php endif ?>
-       
-        <!-- End Hero Projects -->    
+        <?php endif; ?>
+    <?php endwhile; ?>
+
+    <!-- Include Goodlife and Goodguy templates here -->
+    <?php get_template_part('templates/goodlife', 'section'); ?>
+    <?php get_template_part('templates/goodguy', 'values'); ?>
+
+    <?php while ( have_rows('About_Page_Modules') ): the_row(); ?>
+        <!-- Awards Listing -->
         <?php if ( get_row_layout() == 'awards_listing' ): ?>
             <?php get_template_part('templates/about', 'awards'); ?>
         <?php endif; ?>
-        
     <?php endwhile; ?>
 <?php endif; ?>
             
-<?php get_template_part('templates/goodlife', 'section'); ?>    
-<?php get_template_part('templates/goodguy', 'values'); ?>    
-
 <?php get_template_part('templates/form', 'template'); ?>
 <?php get_footer(); ?>
 <?php wp_footer(); ?>

@@ -13,9 +13,10 @@
 }
 
 .title-wrapper-heading h1{
-    font-size: 98px;
-    width: 50%;
-    line-height: 80px;
+    top: 50px;
+    font-size: 120px;
+    width: 60%;
+    line-height: 95px;
 }
 
 .hero-header {
@@ -32,7 +33,7 @@
     justify-content: flex-start;
     padding: 0;
     margin: 0;
-    font-size: 24px;
+    font-size: 40px;
 }
 
 /* featured */
@@ -118,14 +119,13 @@
     text-align: left;
 }
 
-.feature-item-info h6 {
+.feature-item-info{
     margin: 0;
-    font-size: 18px;
 }
 
 .feature-item-info p {
     margin: 5px 0;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 /* Quote */
@@ -182,7 +182,7 @@
 }
 
 .quote-item-col input, .quote-item-col select{
-    height: 36px;
+    height: 44px;
     border-radius: 8px;
 }
 
@@ -271,9 +271,13 @@
 
 .news-content{
     position: absolute;
+    gap: 15px;
     bottom: 30px;
 }
 
+.news-content p{
+    font-size: 18px;
+}
 
 /* Responsive Styles */
 @media ( width <= 768px) {

@@ -16,15 +16,15 @@
                 $hero_title = get_sub_field('title-banner');
     ?>
                 <!-- Hero Banner Section -->
-                <section class="hero-banner position-relative overflow-hidden" style="min-height: 100dvh;">
+                <section class="hero-banner position-relative overflow-hidden" style="min-height: calc(100dvh - 80px); padding-top: 80px;">
                     <!-- Background Video -->
+                     
                     <video autoplay muted loop playsinline id="myVideo" 
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; ">
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
                         <source src="<?php echo get_template_directory_uri(); ?>/assets/image/hero-vid.mp4" type="video/mp4">
                         Your browser does not support HTML5 video.
                     </video>
 
-                   
                     <!-- Foreground Content -->
                     <div class="hero-header position-relative" style="z-index: 1;">
                         <p>The leading real estate developer in the Philippines.</p>
@@ -50,7 +50,7 @@
                             <div class="feature-item">
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/image/placeholder.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
                                 <div class="feature-item-info">
-                                    <h6>Feature Title</h6>
+                                    <h4>Feature Title</h4>
                                     <p>Short description about the feature.</p>
                                     <p>Additional details here.</p>
                                 </div>
@@ -59,7 +59,7 @@
                             <div class="feature-item">
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/image/f2.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
                                 <div class="feature-item-info">
-                                    <h6>Feature Title</h6>
+                                    <h4>Feature Title</h4>
                                     <p>Short description about the feature.</p>
                                     <p>Additional details here.</p>
                                 </div>
@@ -72,7 +72,7 @@
                             <div class="feature-item">
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/image/f3.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
                                 <div class="feature-item-info">
-                                    <h6>Feature Title</h6>
+                                    <h4>Feature Title</h4>
                                     <p>Short description about the feature.</p>
                                     <p>Additional details here.</p>
                                 </div>
@@ -80,7 +80,7 @@
                             <div class="feature-item">
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/image/f4.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
                                 <div class="feature-item-info">
-                                    <h6>Feature Title</h6>
+                                    <h4>Feature Title</h4>
                                     <p>Short description about the feature.</p>
                                     <p>Additional details here.</p>
                                 </div>
@@ -93,7 +93,7 @@
                         <div class="feature-item">
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/image/f5.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
                                 <div class="feature-item-info">
-                                    <h6>Feature Title</h6>
+                                    <h4>Feature Title</h4>
                                     <p>Short description about the feature.</p>
                                     <p>Additional details here.</p>
                                 </div>
@@ -101,7 +101,7 @@
                             <div class="feature-item">
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/image/f6.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
                                 <div class="feature-item-info">
-                                    <h6>Feature Title</h6>
+                                    <h4>Feature Title</h4>
                                     <p>Short description about the feature.</p>
                                     <p>Additional details here.</p>
                                 </div>
@@ -198,7 +198,7 @@
                 <section class="news-section py-5" style="background: linear-gradient(to bottom, rgb(255, 255, 255), rgba(0, 15, 115, 0.88)); background-size: cover; background-position: center; background-repeat: no-repeat;">
                     <!-- Header -->
                     <div class="news-header d-flex justify-content-between align-items-center mb-4">
-                        <h1 class="">Latest News</h1>
+                        <h1 class="">Latest News and Updates</h1>
                         <button class="">View All</button>
                     </div>
 
@@ -209,7 +209,7 @@
                                 <div class="news-item d-flex bg-light shadow-sm ">
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/image/l1.png" alt="SMDC groundbreaking" class="img-fluid" style=" object-fit: cover;">
                                     <div class="news-content p-3 d-flex flex-column justify-content-center">
-                                        <h5 class="text-muted small">SEPTEMBER 27, 2024</h5>
+                                        <h3 class="text-muted fs-6">SEPTEMBER 27, 2024</h3>
                                         <p class="fw-semibold mb-0">SMDC breaks ground on new residential projects in Cavite and Laguna</p>
                                     </div>
                                 </div>
@@ -220,7 +220,7 @@
                                 <div class="news-item d-flex bg-light shadow-sm ">
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/image/l2.png" alt="SMDC partners with Seafood City" class="img-fluid" style=" object-fit: cover;">
                                     <div class="news-content p-3 d-flex flex-column justify-content-center">
-                                        <h5 class="text-muted small">SEPTEMBER 20, 2024</h5>
+                                        <h3 class="text-muted fs-6">SEPTEMBER 20, 2024</h3>
                                         <p class="fw-semibold mb-0">SMDC and Seafood City revolutionize home buying for Global Filipinos</p>
                                     </div>
                                 </div>
@@ -231,7 +231,7 @@
                                 <div class="news-item d-flex bg-light shadow-sm ">
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/image/l2.png" alt="SMDC partners with Seafood City" class="img-fluid" style=" object-fit: cover;">
                                     <div class="news-content p-3 d-flex flex-column justify-content-center">
-                                        <h5 class="text-muted small">SEPTEMBER 20, 2024</h5>
+                                        <h3 class="text-muted fs-6">SEPTEMBER 20, 2024</h3>
                                         <p class="fw-semibold mb-0">SMDC and Seafood City revolutionize home buying for Global Filipinos</p>
                                     </div>
                                 </div>
@@ -242,7 +242,7 @@
                                 <div class="news-item d-flex bg-light shadow-sm" >
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/image/news-image.png" alt="Sample news" class="img-fluid" style=" object-fit: cover;">
                                     <div class="news-content p-3 d-flex flex-column justify-content-center">
-                                        <h5 class="text-muted small">JANUARY 6, 2025</h5>
+                                        <h3 class="text-muted fs-6">JANUARY 6, 2025</h3>
                                         <p class="fw-semibold mb-0">Lorem ipsum dolor sit amet, adipiscing consectetur adipiscing elit.</p>
                                     </div>
                                 </div>
@@ -253,7 +253,7 @@
                                 <div class="news-item d-flex bg-light shadow-sm ">
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/image/l4.png" alt="Sample news" class="img-fluid" style=" object-fit: cover;">
                                     <div class="news-content p-3 d-flex flex-column justify-content-center">
-                                        <h5 class="text-muted small">JANUARY 7, 2025</h5>
+                                        <h3 class="text-muted fs-6">JANUARY 7, 2025</h3>
                                         <p class="fw-semibold mb-0">Lorem ipsum dolor sit amet, adipiscing consectetur adipiscing elit.</p>
                                     </div>
                                 </div>

@@ -104,8 +104,8 @@
 
 <pre>
     <?php
-    echo 'Current Tab: ' . $current_tab . '<br>';
-    echo 'Current Page: ' . $current_page . '<br>';
-    echo 'Awards to Display: ' . print_r($awards_to_display, true);
+   // echo 'Current Tab: ' . $current_tab . '<br>';
+  //  echo 'Current Page: ' . $current_page . '<br>';
+  //  echo 'Awards to Display: ' . print_r($awards_to_display, true);
     ?>
 </pre>

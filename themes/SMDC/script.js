@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tab.addEventListener('click', () => {
             showTabContent(tab);
 
-            // Optional: Update URL without reload to reflect active tab
+            // Update URL without reload to reflect active tab
             const index = Array.from(tabs).indexOf(tab);
             const params = new URLSearchParams(window.location.search);
             params.set('tab', index);
@@ -42,15 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Attach pagination click listeners to load the next set of awards via AJAX
+    // Attach pagination click listeners
     document.querySelectorAll('.pagination a').forEach(link => {
         link.addEventListener('click', function (e) {
-            e.preventDefault();  // Prevent default page reload
+            e.preventDefault(); // Prevent default page reload
 
-            const page = this.getAttribute('href').split('=')[1];  // Get the page number from the URL
-            const tabIndex = urlParams.get('tab') || 0;  // Get the current tab
+            const page = new URL(this.href).searchParams.get('page'); // Get the page number from the URL
+            const tabIndex = urlParams.get('tab') || 0; // Get the current tab
 
-            // Send AJAX request to fetch new content (you'll need to write a backend handler for this)
+            // Send AJAX request to fetch new content
             fetch(`${window.location.pathname}?tab=${tabIndex}&page=${page}`, {
                 method: 'GET',
                 headers: {
@@ -59,10 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => response.text())
             .then(data => {
-                const tabContent = document.querySelector(`.tab-content.active`);
-                const newContent = new DOMParser().parseFromString(data, 'text/html').querySelector('.tab-content.active');
-                tabContent.innerHTML = newContent.innerHTML; // Replace the content dynamically
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                const parser = new DOMParser();
+                const newDocument = parser.parseFromString(data, 'text/html');
+                const newContent = newDocument.querySelector(`.tab-content.active`);
+                const currentContent = document.querySelector(`.tab-content.active`);
+
+                if (newContent && currentContent) {
+                    currentContent.innerHTML = newContent.innerHTML; // Replace the content dynamically
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             })
             .catch(error => console.error('Error loading page:', error));
         });
