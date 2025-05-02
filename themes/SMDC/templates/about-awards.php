@@ -12,13 +12,13 @@
                 <?php endwhile; ?>
             </ul>
             
-            <div class="tab-contents">
-                <?php
-                    $current_tab = isset($_GET['tab']) ? intval($_GET['tab']) : 0;
-                    $current_page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
-                    $tab_index = 0;
-                ?>
+            <?php
+            $current_tab = isset($_GET['tab']) ? intval($_GET['tab']) : 0;
+            $current_page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+            $tab_index = 0;
+            ?>
 
+            <div class="tab-contents">
                 <?php while (have_rows('award_groups')): the_row(); ?>
                     <div class="tab-content <?php echo $tab_index === $current_tab ? 'active' : ''; ?>">
                         <?php if (have_rows('awards')): ?>
@@ -74,17 +74,17 @@
                             <?php if ($total_pages > 1): // Only show pagination if there are multiple pages ?>
                                 <div class="pagination">
                                     <?php if ($current_page > 1): ?>
-                                        <a href="?tab=<?php echo $tab_index; ?>&page=<?php echo $current_page - 1; ?>" class="prev-page">Previous</a>
+                                        <a href="?tab=<?php echo $current_tab; ?>&page=<?php echo $current_page - 1; ?>" class="prev-page">Previous</a>
                                     <?php endif; ?>
 
                                     <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                                        <a href="?tab=<?php echo $tab_index; ?>&page=<?php echo $i; ?>" class="page-number <?php echo $i === $current_page ? 'current' : ''; ?>">
+                                        <a href="?tab=<?php echo $current_tab; ?>&page=<?php echo $i; ?>" class="page-number <?php echo $i === $current_page ? 'current' : ''; ?>">
                                             <?php echo $i; ?>
                                         </a>
                                     <?php endfor; ?>
 
                                     <?php if ($current_page < $total_pages): ?>
-                                        <a href="?tab=<?php echo $tab_index; ?>&page=<?php echo $current_page + 1; ?>" class="next-page">Next</a>
+                                        <a href="?tab=<?php echo $current_tab; ?>&page=<?php echo $current_page + 1; ?>" class="next-page">Next</a>
                                     <?php endif; ?>
                                 </div>
                             <?php endif; ?>
@@ -101,3 +101,11 @@
         <p>Debug: No award groups found. Ensure data is entered in the WordPress admin.</p>
     <?php endif; ?>
 </section>
+
+<pre>
+    <?php
+    echo 'Current Tab: ' . $current_tab . '<br>';
+    echo 'Current Page: ' . $current_page . '<br>';
+    echo 'Awards to Display: ' . print_r($awards_to_display, true);
+    ?>
+</pre>

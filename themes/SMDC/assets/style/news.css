@@ -1,0 +1,18 @@
+.news-banner {
+    height: 60dvh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.news-heading {
+    color: #ffffff;
+}
+
+.news-heading h1{
+    font-size: 98px;
+}
+
+.news-heading h5{
+    font-size: 30px;
+}

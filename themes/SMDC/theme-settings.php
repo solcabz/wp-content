@@ -263,5 +263,331 @@ function custom_admin_menu_styles() {
     ';
 }
 add_action('admin_head', 'custom_admin_menu_styles');
+
+// Handle quote form submission
+add_action('admin_post_nopriv_submit_quote_form_home', 'handle_quote_form_home');
+add_action('admin_post_submit_quote_form_home', 'handle_quote_form_home');
+
+function handle_quote_form_home() {
+    // Check nonce for security
+    if (!isset($_POST['quote_form_home_nonce']) || !wp_verify_nonce($_POST['quote_form_home_nonce'], 'submit_quote_form_home')) {
+        wp_die('Security check failed.');
+    }
+
+    // Sanitize form inputs
+    $property = sanitize_text_field($_POST['property']);
+    $first_name = sanitize_text_field($_POST['first_name']);
+    $last_name = sanitize_text_field($_POST['last_name']);
+    $contact_number = sanitize_text_field($_POST['contact_number']);
+    $email = sanitize_email($_POST['email']);
+    $country = sanitize_text_field($_POST['country']);
+    $submitted_at = current_time('mysql'); // To store the submission time
+
+    // Validate the email address
+    if (!is_email($email)) {
+        wp_die('Invalid email address.');
+    }
+
+    // Prepare data for database
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'quote_form_home';
+    
+    // Get current timestamp (optional, can be omitted if the database handles it)
+    $created_at = current_time('mysql');  // This gets the current WordPress timestamp
+    
+    // Insert form data into the database
+    $inserted = $wpdb->insert(
+        $table_name,
+        [
+            'property'      => $property,
+            'first_name'    => $first_name,
+            'last_name'     => $last_name,
+            'contact_number'=> $contact_number,
+            'email'         => $email,
+            'country'       => $country,
+            'created_at'    => $created_at
+        ]
+    );
+    
+    if ($inserted === false) {
+        // Log the error message for debugging
+        error_log('Database Insert Error: ' . $wpdb->last_error);
+        wp_die('There was an error saving your data. Please try again.');
+    }
+
+    // Send email notification to admin
+    $to = get_option('quote_form_home_recipient_email', get_option('admin_email'));
+    $subject = 'New Quote Request from ' . $first_name . ' ' . $last_name;
+    $body = "A new quote request has been submitted:\n\n";
+    $body .= "Property: $property\n";
+    $body .= "First Name: $first_name\n";
+    $body .= "Last Name: $last_name\n";
+    $body .= "Contact Number: $contact_number\n";
+    $body .= "Email: $email\n";
+    $body .= "Country: $country\n";
+    $body .= "Submitted At: $submitted_at\n";
+
+    wp_mail($to, $subject, $body);
+
+    // Redirect to a thank you page after submission
+    wp_redirect(home_url('/thank-you'));
+    exit;
+}
+
+// Admin Menu Page for quote forms
+add_action('admin_menu', 'add_quote_forms_menu');
+
+function add_quote_forms_menu() {
+    add_menu_page('Forms', 'Forms', 'manage_options', 'quote-forms', 'render_quote_forms_admin', 'dashicons-feedback', 20);
+}
+
+function render_quote_forms_admin() {
+    global $wpdb;
+
+    // Get active tab (home, quote, or inquiry)
+    $tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'home';
+    $table_map = [
+        'home' => $wpdb->prefix . 'quote_form_home',
+        'quote' => $wpdb->prefix . 'get_a_quote_page',
+        'inquiry' => $wpdb->prefix . 'inquiry_form',
+    ];
+
+    // Determine table name based on the active tab
+    $table_name = $table_map[$tab] ?? $wpdb->prefix . 'quote_form_home';
+
+    // Handle filters
+    $search = isset($_GET['search']) ? sanitize_text_field($_GET['search']) : '';
+    $start_date = isset($_GET['start_date']) ? sanitize_text_field($_GET['start_date']) : '';
+    $end_date = isset($_GET['end_date']) ? sanitize_text_field($_GET['end_date']) : '';
+
+    // Prepare query
+    $query = "SELECT * FROM $table_name WHERE 1=1";
+    $params = [];
+
+    // Apply search filter
+    if ($search) {
+        $query .= " AND (first_name LIKE %s OR last_name LIKE %s OR email LIKE %s)";
+        $wild_search = '%' . $wpdb->esc_like($search) . '%';
+        $params[] = $wild_search;
+        $params[] = $wild_search;
+        $params[] = $wild_search;
+    }
+
+    // Apply date filters
+    if ($start_date) {
+        $query .= " AND submitted_at >= %s";
+        $params[] = $start_date . ' 00:00:00';
+    }
+    if ($end_date) {
+        $query .= " AND submitted_at <= %s";
+        $params[] = $end_date . ' 23:59:59';
+    }
+
+    // Prepare the final query
+    if (!empty($params)) {
+        $query = $wpdb->prepare($query, ...$params);
+    }
+
+    // Fetch results
+    $results = $wpdb->get_results($query, ARRAY_A);
+
+    // Display tabs for switching between different form submissions
+    echo '<h2 class="nav-tab-wrapper">';
+    foreach ($table_map as $key => $label) {
+        $active = $tab === $key ? 'nav-tab-active' : '';
+        $name = ucwords(str_replace('_', ' ', $key));
+        echo "<a href='?page=quote-forms&tab=$key' class='nav-tab $active'>$name</a>";
+    }
+    echo '</h2>';
+
+    // Filter form for search and date range
+    ?>
+    <form method="get">
+        <input type="hidden" name="page" value="quote-forms" />
+        <input type="hidden" name="tab" value="<?php echo esc_attr($tab); ?>" />
+        <input type="text" name="search" placeholder="Search..." value="<?php echo esc_attr($search); ?>" />
+        <input type="submit" value="Filter" class="button" />
+        <input type="date" name="start_date" value="<?php echo esc_attr($start_date); ?>" />
+        <input type="date" name="end_date" value="<?php echo esc_attr($end_date); ?>" />
+        <a href="<?php echo admin_url("admin-post.php?action=export_quote_form_data&tab=$tab&search=$search&start_date=$start_date&end_date=$end_date"); ?>" class="button button-primary">Export CSV</a>
+    </form>
+
+    <table class="widefat fixed striped">
+        <thead>
+            <tr>
+                <?php if (!empty($results)) {
+                    foreach (array_keys($results[0]) as $col) {
+                        echo '<th>' . esc_html(ucwords(str_replace('_', ' ', $col))) . '</th>';
+                    }
+                    echo '<th>Actions</th>';
+                } ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($results as $row): ?>
+                <tr>
+                    <?php foreach ($row as $value): ?>
+                        <td><?php echo esc_html($value); ?></td>
+                    <?php endforeach; ?>
+                    <td>
+                        <a href="<?php echo admin_url('admin-post.php?action=delete_quote_submission&id=' . intval($row['id']) . '&tab=' . esc_attr($tab)); ?>" class="button button-small" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            <?php if (empty($results)): ?>
+                <tr><td colspan="100%">No submissions found.</td></tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+    <?php
+}
+
+// Export form data as CSV
+add_action('admin_post_export_quote_form_data', 'export_quote_form_data');
+
+function export_quote_form_data() {
+    global $wpdb;
+
+    $tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'home';
+    $search = isset($_GET['search']) ? sanitize_text_field($_GET['search']) : '';
+    $start_date = isset($_GET['start_date']) ? sanitize_text_field($_GET['start_date']) : '';
+    $end_date = isset($_GET['end_date']) ? sanitize_text_field($_GET['end_date']) : '';
+
+    $table_map = [
+        'home' => $wpdb->prefix . 'quote_form_home',
+        'quote' => $wpdb->prefix . 'get_a_quote_page',
+        'inquiry' => $wpdb->prefix . 'inquiry_form',
+    ];
+
+    $table_name = $table_map[$tab] ?? $wpdb->prefix . 'quote_form_home';
+
+    $query = "SELECT * FROM $table_name WHERE 1=1";
+    $params = [];
+
+    // Apply search filter
+    if ($search) {
+        $query .= " AND (first_name LIKE %s OR last_name LIKE %s OR email LIKE %s)";
+        $wild_search = '%' . $wpdb->esc_like($search) . '%';
+        $params[] = $wild_search;
+        $params[] = $wild_search;
+        $params[] = $wild_search;
+    }
+
+    // Apply date filters
+    if ($start_date) {
+        $query .= " AND submitted_at >= %s";
+        $params[] = $start_date . ' 00:00:00';
+    }
+    if ($end_date) {
+        $query .= " AND submitted_at <= %s";
+        $params[] = $end_date . ' 23:59:59';
+    }
+
+    // Prepare the query
+    if (!empty($params)) {
+        $query = $wpdb->prepare($query, ...$params);
+    }
+
+    // Get results
+    $results = $wpdb->get_results($query, ARRAY_A);
+
+    // If no data, show an error
+    if (empty($results)) {
+        wp_die('No data to export.');
+    }
+
+    // Export CSV
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="form_data_' . $tab . '_' . date('Y-m-d') . '.csv"');
+
+    $output = fopen('php://output', 'w');
+
+    // Write header
+    fputcsv($output, array_keys($results[0]));
+
+    // Write rows
+    foreach ($results as $row) {
+        fputcsv($output, $row);
+    }
+
+    fclose($output);
+    exit;
+}
+
+// Handle deletion of quote submission
+add_action('admin_post_delete_quote_submission', 'delete_quote_submission');
+
+function delete_quote_submission() {
+    global $wpdb;
+
+    $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+    $tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'home';
+
+    $table_map = [
+        'home' => $wpdb->prefix . 'quote_form_home',
+        'quote' => $wpdb->prefix . 'get_a_quote_page',
+        'inquiry' => $wpdb->prefix . 'inquiry_form',
+    ];
+
+    $table_name = $table_map[$tab] ?? $wpdb->prefix . 'quote_form_home';
+
+    if ($id > 0) {
+        $wpdb->delete($table_name, ['id' => $id]);
+    }
+
+    wp_redirect(admin_url("admin.php?page=quote-forms&tab=$tab"));
+    exit;
+}
+
+// Settings page for email
+add_action('admin_menu', function () {
+    add_submenu_page(
+        'quote-forms',
+        'Form Email Settings',
+        'Email Settings',
+        'manage_options',
+        'quote-form-email-settings',
+        'render_quote_form_email_settings_page'
+    );
+});
+
+add_action('admin_init', function () {
+    register_setting('quote_form_email_settings_group', 'quote_form_home_recipient_email');
+
+    add_settings_section(
+        'quote_form_email_settings_section',
+        'Recipient Email Settings',
+        null,
+        'quote-form-email-settings'
+    );
+
+    add_settings_field(
+        'quote_form_home_recipient_email',
+        'Recipient Email for Home Quote Form',
+        function () {
+            $value = get_option('quote_form_home_recipient_email', get_option('admin_email'));
+            echo '<input type="email" name="quote_form_home_recipient_email" value="' . esc_attr($value) . '" class="regular-text" />';
+        },
+        'quote-form-email-settings',
+        'quote_form_email_settings_section'
+    );
+});
+
+function render_quote_form_email_settings_page() {
+    ?>
+    <div class="wrap">
+        <h2>Quote Form Email Settings</h2>
+        <form method="post" action="options.php">
+            <?php settings_fields('quote_form_email_settings_group'); ?>
+            <?php do_settings_sections('quote-form-email-settings'); ?>
+            <p class="submit">
+                <input type="submit" name="submit" class="button-primary" value="Save Settings" />
+            </p>
+        </form>
+    </div>
+    <?php
+}
+
+
 ?>
 

@@ -68,3 +68,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+document.getElementById('customSearchForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const input = document.getElementById('customSearchInput').value.trim();
+
+    if (input) {
+        // Create a URL-friendly slug
+        const slug = input.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
+
+        // Redirect to the expected slug-based URL (adjust based on your permalink structure)
+        window.location.href = `/${slug}`;
+    }
+});

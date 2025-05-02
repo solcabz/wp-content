@@ -23,7 +23,7 @@
                     $about_banner = get_sub_field('about_banner');
         ?>
             <!-- Hero Projects -->
-            <section class="property-wrapper d-flex justify-content-end align-items-center flex-column" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 55%), url('<?php echo esc_url(is_array($about_banner) ? $about_banner['url'] : $about_banner); ?>');">
+            <section class="property-wrapper d-flex justify-content-end align-items-center flex-column" style="background-image: url('<?php echo esc_url(is_array($about_banner) ? $about_banner['url'] : $about_banner); ?>');">
 
             </section>
         <?php endif ?>
