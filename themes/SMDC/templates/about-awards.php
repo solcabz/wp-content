@@ -50,7 +50,6 @@
                 $tab_index++;
             endwhile;
             ?>
-
         </div>
     <?php else: ?>
         <p>Debug: No award groups found. Ensure data is entered in the WordPress admin.</p>
