@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tab.addEventListener('click', () => {
             showTabContent(tab);
 
-            // Update URL without reload to reflect active tab
             const index = Array.from(tabs).indexOf(tab);
             const params = new URLSearchParams(window.location.search);
             params.set('tab', index);
@@ -61,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 const parser = new DOMParser();
                 const newDocument = parser.parseFromString(data, 'text/html');
-                const newContent = newDocument.querySelector(`.tab-content.active`);
+                const newContent = newDocument.querySelector(`.tab-content:nth-child(${parseInt(tabIndex) + 1})`);
                 const currentContent = document.querySelector(`.tab-content.active`);
 
                 if (newContent && currentContent) {
