@@ -21,9 +21,9 @@
             <p class="property-description">
                 <?php the_field('property_description'); // ACF field for description ?>
             </p>
-            <button class="virtual-tour-btn">
-                <?php the_field('virtual_tour_button_text'); // ACF field for button text ?>
-            </button>
+            <a class="virtual-tour-btn">
+                360 Virtual Tour
+            </a>
         </div>
         <div class="property-meta">
             <div class="meta-item">
