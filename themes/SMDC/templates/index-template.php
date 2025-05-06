@@ -195,7 +195,7 @@
                 
 
                 <!-- Latest SMDC News Section -->
-                <section class="news-section py-5" style="background: linear-gradient(to bottom, rgb(255, 255, 255), rgba(0, 15, 115, 0.88)); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                <section class="news-section py-5" style="background:background-size: cover; background-position: center; background-repeat: no-repeat;">
                     <!-- Header -->
                     <div class="news-header d-flex justify-content-between align-items-center mb-4">
                         <h1 class="">Latest News and Updates</h1>
