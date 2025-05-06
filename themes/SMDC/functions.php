@@ -83,6 +83,8 @@ function load_award_page() {
     wp_die(); // Important to terminate the request properly
 }
 
-require_once get_template_directory() . '/theme-settings.php';require_once get_template_directory() . '/theme-settings.php';
+require_once get_template_directory() . '/news-settings.php';
+require_once get_template_directory() . '/property-settings.php';
+require_once get_template_directory() . '/theme-settings.php';
 
 

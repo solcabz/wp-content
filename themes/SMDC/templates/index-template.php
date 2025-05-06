@@ -211,6 +211,7 @@
                                     <div class="news-content p-3 d-flex flex-column justify-content-center">
                                         <h3 class="text-muted fs-6">SEPTEMBER 27, 2024</h3>
                                         <p class="fw-semibold mb-0">SMDC breaks ground on new residential projects in Cavite and Laguna</p>
+                                        <button>Read more</button>
                                     </div>
                                 </div>
                             </a>
@@ -222,6 +223,7 @@
                                     <div class="news-content p-3 d-flex flex-column justify-content-center">
                                         <h3 class="text-muted fs-6">SEPTEMBER 20, 2024</h3>
                                         <p class="fw-semibold mb-0">SMDC and Seafood City revolutionize home buying for Global Filipinos</p>
+                                        <button>Read more</button>
                                     </div>
                                 </div>
                             </a>
@@ -233,6 +235,7 @@
                                     <div class="news-content p-3 d-flex flex-column justify-content-center">
                                         <h3 class="text-muted fs-6">SEPTEMBER 20, 2024</h3>
                                         <p class="fw-semibold mb-0">SMDC and Seafood City revolutionize home buying for Global Filipinos</p>
+                                        <button>Read more</button>
                                     </div>
                                 </div>
                             </a>
@@ -244,6 +247,7 @@
                                     <div class="news-content p-3 d-flex flex-column justify-content-center">
                                         <h3 class="text-muted fs-6">JANUARY 6, 2025</h3>
                                         <p class="fw-semibold mb-0">Lorem ipsum dolor sit amet, adipiscing consectetur adipiscing elit.</p>
+                                        <button>Read more</button>
                                     </div>
                                 </div>
                             </a>
@@ -255,6 +259,7 @@
                                     <div class="news-content p-3 d-flex flex-column justify-content-center">
                                         <h3 class="text-muted fs-6">JANUARY 7, 2025</h3>
                                         <p class="fw-semibold mb-0">Lorem ipsum dolor sit amet, adipiscing consectetur adipiscing elit.</p>
+                                        <button>Read more</button>
                                     </div>
                                 </div>
                             </a>
