@@ -18,8 +18,13 @@
         ?>
             <img src="<?php echo $property_icon_url; ?>" alt="" class="property-icon">
             <h1 class="property-title"><?php the_title(); ?></h1>
+            <?php 
+                // Fetch the About Property group field
+                $about_property = get_field('about_property'); // Get the 'about_property' group
+                $property_description = !empty($about_property['description']) ? $about_property['description'] : 'No description available.';
+            ?>
             <p class="property-description">
-                <?php the_field('property_description'); // ACF field for description ?>
+                    
             </p>
             <a class="virtual-tour-btn">
                 360 Virtual Tour

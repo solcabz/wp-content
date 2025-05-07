@@ -37,6 +37,32 @@ function register_property_post_type() {
 }
 add_action('init', 'register_property_post_type'); 
 
+function register_property_segment_taxonomy() {
+    $labels = array(
+        'name'              => 'Property Segments',
+        'singular_name'     => 'Property Segment',
+        'search_items'      => 'Search Property Segments',
+        'all_items'         => 'All Property Segments',
+        'edit_item'         => 'Edit Property Segment',
+        'update_item'       => 'Update Property Segment',
+        'add_new_item'      => 'Add New Property Segment',
+        'new_item_name'     => 'New Property Segment Name',
+        'menu_name'         => 'Property Segments',
+    );
+
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'property-segment'),
+    );
+
+    register_taxonomy('property_segment', ['property'], $args);
+}
+add_action('init', 'register_property_segment_taxonomy');
+
 // Modify the permalink structure for the 'property' post type
 function custom_property_permalink($post_link, $post) {
     if ($post->post_type === 'property') {

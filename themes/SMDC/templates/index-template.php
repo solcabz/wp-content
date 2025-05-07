@@ -43,70 +43,70 @@
                     </div>
 
                     <div class="feature-container">
-                        <div class="feature-wrapper-item">
-                            <div class="feature-title">
-                                <p>HIGH-RISE BUILDINGS (CONDOMINIUM)</p>
-                            </div>
-                            <div class="feature-item">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/placeholder.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
-                                <div class="feature-item-info">
-                                    <h4>Feature Title</h4>
-                                    <p>Short description about the feature.</p>
-                                    <p>Additional details here.</p>
-                                </div>
-                            </div>
+                        <?php
+                            // Define property segments and their taxonomy slugs
+                            $property_segments = [
+                                'High-Rise Buildings (HRB)' => 'hrb',
+                                'Mid-Rise Buildings (MRB)' => 'mrb',
+                                'Symphony Homes (ECO)' => 'eco',
+                            ];
 
-                            <div class="feature-item">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/f2.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
-                                <div class="feature-item-info">
-                                    <h4>Feature Title</h4>
-                                    <p>Short description about the feature.</p>
-                                    <p>Additional details here.</p>
-                                </div>
-                            </div>
-                        </div>
+                            // Loop through each segment and fetch 2 featured properties
+                            foreach ($property_segments as $segment_name => $segment_slug):
+                                $args = [
+                                    'post_type' => 'property',
+                                    'posts_per_page' => 2, // Fetch 2 properties per segment
+                                    'meta_query' => [
+                                        [
+                                            'key' => 'is_featured', // ACF field for "Featured"
+                                            'value' => '1', // Value for "true" in ACF
+                                            'compare' => '==',
+                                        ],
+                                    ],
+                                    'tax_query' => [
+                                        [
+                                            'taxonomy' => 'property_segment', // Taxonomy name
+                                            'field' => 'slug',
+                                            'terms' => $segment_slug,
+                                        ],
+                                    ],
+                                ];
+                                $query = new WP_Query($args);
+
+                            if ($query->have_posts()):
+                        ?>
+                        
                         <div class="feature-wrapper-item">
                             <div class="feature-title">
-                                <p>MID-RISE BUILDINGS (CONDOMINIUM)</p>
+                                <p><?php echo esc_html($segment_name); ?></p>
                             </div>
-                            <div class="feature-item">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/f3.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
-                                <div class="feature-item-info">
-                                    <h4>Feature Title</h4>
-                                    <p>Short description about the feature.</p>
-                                    <p>Additional details here.</p>
-                                </div>
-                            </div>
-                            <div class="feature-item">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/f4.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
-                                <div class="feature-item-info">
-                                    <h4>Feature Title</h4>
-                                    <p>Short description about the feature.</p>
-                                    <p>Additional details here.</p>
-                                </div>
-                            </div>
+                            <?php while ($query->have_posts()): $query->the_post(); ?>
+                                <a href="<?php the_permalink(); ?>">
+                                    <div class="feature-item">
+                                        <?php 
+                                            // Fetch the Hero Image from the ACF group field
+                                            $hero_group = get_field('hero'); // Get the 'hero' group
+                                            $hero_image = $hero_group['hero_image']; // Access the 'hero_image' subfield
+                                        ?>
+                                        <img src="<?php echo esc_url($hero_image['url']); ?>" alt="Feature Image" class="img-fluid feature-img zoom-in">
+                                        <div class="feature-item-info">
+                                            <h4><?php the_title(); ?></h4>
+                                            <?php 
+                                                // Fetch the About Property group field
+                                                $about_property = get_field('about_property'); // Get the 'about_property' group
+                                                $property_description = !empty($about_property['description']) ? $about_property['description'] : 'No description available.';
+                                            ?>
+                                            <p class="property-description"> <?php echo esc_html($property_description); ?></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            <?php endwhile; ?>
                         </div>
-                        <div class="feature-wrapper-item">
-                            <div class="feature-title">
-                                <p>SYMPHONY HOMES (HOUSE AND LOT)</p>
-                            </div>
-                        <div class="feature-item">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/f5.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
-                                <div class="feature-item-info">
-                                    <h4>Feature Title</h4>
-                                    <p>Short description about the feature.</p>
-                                    <p>Additional details here.</p>
-                                </div>
-                            </div>
-                            <div class="feature-item">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/f6.png" alt="Feature Image" class="img-fluid feature-img zoom-in">
-                                <div class="feature-item-info">
-                                    <h4>Feature Title</h4>
-                                    <p>Short description about the feature.</p>
-                                    <p>Additional details here.</p>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                            endif;
+                            wp_reset_postdata();
+                        endforeach;
+                        ?>                                       
                     </div>
                 </section>
 
@@ -193,76 +193,77 @@
 
                 </section>
                 
-
                 <!-- Latest SMDC News Section -->
-                <section class="news-section py-5" style="background:background-size: cover; background-position: center; background-repeat: no-repeat;">
+                <section class="news-section py-5">
                     <!-- Header -->
-                    <div class="news-header d-flex justify-content-between align-items-center mb-4">
-                        <h1 class="">Latest News and Updates</h1>
-                        <button class="">View All</button>
-                    </div>
+                    <div class="">
+                        <div class="row mb-4">
+                            <div class="d-flex justify-content-around align-center text-center">
+                                <h1 class="fw-bold fs-90">Latest News And Updates</h1>
+                                <a href="<?php echo get_post_type_archive_link('good_life'); ?>" class="btn btn-outline-dark mt-3">View All</a>
+                            </div>
+                        </div>
 
-                    <!-- News Grid -->
-                    <div class="news-item-wrapper">
-                        <div class="col d-flex justify-content-center p-0">
-                            <a href="#" class="text-decoration-none text-dark">
-                                <div class="news-item d-flex bg-light shadow-sm ">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/image/l1.png" alt="SMDC groundbreaking" class="img-fluid" style=" object-fit: cover;">
-                                    <div class="news-content p-3 d-flex flex-column justify-content-center">
-                                        <h3 class="text-muted fs-6">SEPTEMBER 27, 2024</h3>
-                                        <p class="fw-semibold mb-0">SMDC breaks ground on new residential projects in Cavite and Laguna</p>
-                                        <button>Read more</button>
+                        <!-- News Content -->
+                        <div class="row px-5">
+                            <?php
+                            // Query to fetch "The Good Life" posts
+                            $args = [
+                                'post_type' => 'good_life', // Custom post type
+                                'posts_per_page' => 5, // Limit to 5 posts
+                                'orderby' => 'date', // Order by date
+                                'order' => 'DESC', // Descending order
+                            ];
+                            $good_life_query = new WP_Query($args);
+
+                            if ($good_life_query->have_posts()):
+                                $post_count = 0; // Counter to track featured vs grid posts
+                                while ($good_life_query->have_posts()): $good_life_query->the_post();
+                                    $post_count++;
+                                    if ($post_count === 1): // First post as featured news
+                            ?>
+                            <!-- Featured News -->
+                            <div class="col-lg-6 mb-4">
+                                <div class="card border-0 shadow-lg h-100">
+                                    <?php  
+                                        $news_group = get_field('news_hero'); // Get the 'News' group
+                                        $news_image = $news_group['news_image'];
+                                        $news_sub_headline = $news_group['sub_headline']; 
+                                    ?>
+                                    <img src="<?php echo esc_url($news_image['url']); ?>" class="card-img-top" style="object-fit: cover; height: 100%;">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php the_title(); ?></h5>
+                                        <p class="card-text"><?php echo esc_html($news_sub_headline); ?></p>
+                                        <p class="text-muted mb-2"><?php echo get_the_date(); ?></p>
+                                        <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-dark">Read More</a>
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="col d-flex justify-content-center p-0">
-                            <a href="#" class="text-decoration-none text-dark">
-                                <div class="news-item d-flex bg-light shadow-sm ">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/image/l2.png" alt="SMDC partners with Seafood City" class="img-fluid" style=" object-fit: cover;">
-                                    <div class="news-content p-3 d-flex flex-column justify-content-center">
-                                        <h3 class="text-muted fs-6">SEPTEMBER 20, 2024</h3>
-                                        <p class="fw-semibold mb-0">SMDC and Seafood City revolutionize home buying for Global Filipinos</p>
-                                        <button>Read more</button>
+                            </div>
+                            <?php else: // Remaining posts as grid news ?>
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-0 shadow-lg">
+                                    <?php  
+                                        $news_group = get_field('news_hero'); // Get the 'News' group
+                                        $news_image = $news_group['news_image']; 
+                                        $news_sub_headline = $news_group['sub_headline']; 
+                                    ?>
+                                    <img src="<?php echo esc_url($news_image['url']); ?>" alt="<?php the_title(); ?>" class="card-img-top" style="object-fit: cover; height: 250px;">
+                                    <div class="card-body">
+                                        <h6 class="card-title"><?php the_title(); ?></h6>
+                                        <p class="card-text"><?php echo esc_html($news_sub_headline); ?></p>
+                                        <p class="text-muted mb-2"><?php echo get_the_date(); ?></p>
+                                        <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-dark">Read More</a>
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="col d-flex justify-content-center p-0">
-                            <a href="#" class="text-decoration-none text-dark">
-                                <div class="news-item d-flex bg-light shadow-sm ">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/image/l2.png" alt="SMDC partners with Seafood City" class="img-fluid" style=" object-fit: cover;">
-                                    <div class="news-content p-3 d-flex flex-column justify-content-center">
-                                        <h3 class="text-muted fs-6">SEPTEMBER 20, 2024</h3>
-                                        <p class="fw-semibold mb-0">SMDC and Seafood City revolutionize home buying for Global Filipinos</p>
-                                        <button>Read more</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col d-flex justify-content-center p-0">
-                            <a href="#" class="text-decoration-none text-dark">
-                                <div class="news-item d-flex bg-light shadow-sm" >
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/image/news-image.png" alt="Sample news" class="img-fluid" style=" object-fit: cover;">
-                                    <div class="news-content p-3 d-flex flex-column justify-content-center">
-                                        <h3 class="text-muted fs-6">JANUARY 6, 2025</h3>
-                                        <p class="fw-semibold mb-0">Lorem ipsum dolor sit amet, adipiscing consectetur adipiscing elit.</p>
-                                        <button>Read more</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col d-flex justify-content-center p-0">
-                            <a href="#" class="text-decoration-none text-dark">
-                                <div class="news-item d-flex bg-light shadow-sm ">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/image/l4.png" alt="Sample news" class="img-fluid" style=" object-fit: cover;">
-                                    <div class="news-content p-3 d-flex flex-column justify-content-center">
-                                        <h3 class="text-muted fs-6">JANUARY 7, 2025</h3>
-                                        <p class="fw-semibold mb-0">Lorem ipsum dolor sit amet, adipiscing consectetur adipiscing elit.</p>
-                                        <button>Read more</button>
-                                    </div>
-                                </div>
-                            </a>
+                            </div>
+                            <?php
+                                    endif;
+                                endwhile;
+                                wp_reset_postdata();
+                            else:
+                            ?>
+                            <p class="text-center">No news available at the moment.</p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </section>
