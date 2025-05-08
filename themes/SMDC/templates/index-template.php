@@ -61,10 +61,10 @@ $good_life_query = new WP_Query($args);
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/image/map.png" alt="Philippines Map" class="img-fluid">
                                     
                                    
-                                    <a href="" class="map-link" style="top: 20%; left:60%; width: 10%; height: 5%; width: 20%;">Makati City</a>
-                                    <a href="" class="map-link" style="top: 30%; left: 5%; width: 10%; height: 5%; width: 20%">Mall of Asia</a>
-                                    <a href="" class="map-link" style="top: 32%; left: 65%; width: 10%; height: 5%; width: 20%">Mandaluyong</a>
-                                    <a href="" class="map-link" style="top: 38%; left: 10%; width: 10%; height: 5%; width: 20%">Pasig</a>
+                                    <a href="" class="map-link" style="top: 14%; left: 73%; width: 10%; height: 5%; width: 20%;">Makati City</a>
+                                    <a href="" class="map-link" style="top: 23%; left: 3%; width: 10%; height: 5%; width: 20%">Mall of Asia</a>
+                                    <a href="" class="map-link" style="top: 27%; left: 65%; width: 10%; height: 5%; width: 20%">Mandaluyong</a>
+                                    <a href="" class="map-link" style="top: 33%; left: 2%; width: 10%; height: 5%; width: 20%">Pasig</a>
                                 </div>
                             </div>
                         </div>
