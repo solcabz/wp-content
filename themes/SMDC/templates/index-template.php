@@ -44,19 +44,28 @@ $good_life_query = new WP_Query($args);
                     </div>
                 </section> 
                  
-                  <!-- Map Section -->
-                  <section class="map-section py-5">
-                    <div class="container">
+                <!-- Map Section -->
+                <section class="map-section py-5">
+                    <div class="container-xl">
                         <div class="row align-items-center">
                             <!-- Left Column: Content -->
                             <div class="col-lg-6">
-                                <h2>Our Locations</h2>
+                                <h2 style="font-size: 90px; ">Our Locations</h2>
                                 <p>Explore our properties across the Philippines. Find the perfect location for your dream home.</p>
                             </div>
 
                             <!-- Right Column: Map Image -->
                             <div class="col-lg-6 text-center">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/map.png" alt="Philippines Map" class="img-fluid">
+                                <!-- Map Image -->
+                                <div class="map-container position-relative">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/image/map.png" alt="Philippines Map" class="img-fluid">
+                                    
+                                   
+                                    <a href="" class="map-link" style="top: 20%; left:60%; width: 10%; height: 5%; width: 20%;">Makati City</a>
+                                    <a href="" class="map-link" style="top: 30%; left: 5%; width: 10%; height: 5%; width: 20%">Mall of Asia</a>
+                                    <a href="" class="map-link" style="top: 32%; left: 65%; width: 10%; height: 5%; width: 20%">Mandaluyong</a>
+                                    <a href="" class="map-link" style="top: 38%; left: 10%; width: 10%; height: 5%; width: 20%">Pasig</a>
+                                </div>
                             </div>
                         </div>
                     </div>

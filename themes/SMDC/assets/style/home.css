@@ -36,6 +36,34 @@
     font-size: 40px;
 }
 
+.map-container {
+    position: relative;
+}
+
+.map-link {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 10;
+    color: #fff;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.8); /* Dark background for labels */
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+}
+
+.map-link:hover {
+    background: rgba(34, 33, 33, 0.74); /* Highlight on hover */
+}
+
+.map-lines {
+    pointer-events: none; /* Prevent interaction with the lines */
+}
+
 /* featured */
 .feature-section{
     background: #363636;

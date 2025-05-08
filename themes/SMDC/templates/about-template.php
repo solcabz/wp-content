@@ -16,8 +16,8 @@
 <body>
 <?php get_header(); ?>
 
-<?php if ( have_rows('About_Page_Modules') ): ?>
-    <?php while ( have_rows('About_Page_Modules') ): the_row(); ?>
+<?php if ( have_rows('about_page_modules') ): ?>
+    <?php while ( have_rows('about_page_modules') ): the_row(); ?>
         <?php if ( get_row_layout() == 'about_hero' ): ?>
             <?php 
                 $about_banner = get_sub_field('about_banner');
