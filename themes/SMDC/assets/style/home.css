@@ -203,6 +203,58 @@
     background: #0030FF;
 }
 
+.news-title{
+    font-size: 80px;
+}
+
+.news-btn{
+    display: flex;
+    width: 216px;
+    height: 62px;
+    background: #363636;
+    color: #F1F0EF;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    border: none;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    font-family: "SansCondFont", sans-serif;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 8px;
+}
+
+.news-btn:hover{
+    background: #0030FF;
+}
+
+/* Set a fixed height for the news cards */
+.news-section .card {
+    width: 100%; /* Ensure responsiveness */ 
+    height: 400px; /* Adjust the height as needed */
+    margin: 0 auto; /* Center the card */
+}
+
+.news-section .card-img {
+    object-fit: cover;
+    height: 100%; /* Ensure the image fills the card */
+    width: 100%;
+}
+
+.news-section .card-overlay {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    color: #fff;
+}
+
+.card-fixed-height {
+    height: 450px; /* Set a fixed height for the cards */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures content is spaced properly */
+}
+.card-fixed-height .card-body {
+    flex-grow: 1; /* Ensures the body takes up available space */
+}
 
 /* Responsive Styles */
 @media ( width <= 768px) {

@@ -5,6 +5,16 @@
   */
 ?>
 
+<?php
+// Define the query for the "good_life" post type
+$args = [
+    'post_type' => 'good_life', // Replace with your custom post type slug
+    'posts_per_page' => 4, // Number of posts to fetch
+    'post_status' => 'publish', // Only fetch published posts
+];
+$good_life_query = new WP_Query($args);
+?>
+
 <?php while ( have_posts() ) : the_post(); ?>
 
     <?php 
@@ -110,6 +120,12 @@
                     </div>
                 </section>
 
+
+                <!-- Map Section -->
+                <section>
+
+                </section>
+
     <?php 
             elseif ( get_row_layout() == 'get_a_quote' ): 
                 $quote_image = get_sub_field('quote-image');
@@ -195,75 +211,88 @@
                 
                 <!-- Latest SMDC News Section -->
                 <section class="news-section py-5">
-                    <!-- Header -->
-                    <div class="">
-                        <div class="row mb-4">
-                            <div class="d-flex justify-content-around align-center text-center">
-                                <h1 class="fw-bold fs-90">Latest News And Updates</h1>
-                                <a href="<?php echo get_post_type_archive_link('good_life'); ?>" class="btn btn-outline-dark mt-3">View All</a>
+                    <div class="container">
+                        <div class="row">
+                            <!-- Left Column: Title and Button -->
+                            <div class="col-lg-4 d-flex flex-column justify-content-Start align-items-start">
+                                <h1 class="news-title">Latest News & Updates</h1>
+                                <a href="<?php echo get_post_type_archive_link('good_life'); ?>" class="news-btn">View All</a>
                             </div>
-                        </div>
 
-                        <!-- News Content -->
-                        <div class="row px-5">
-                            <?php
-                            // Query to fetch "The Good Life" posts
-                            $args = [
-                                'post_type' => 'good_life', // Custom post type
-                                'posts_per_page' => 5, // Limit to 5 posts
-                                'orderby' => 'date', // Order by date
-                                'order' => 'DESC', // Descending order
-                            ];
-                            $good_life_query = new WP_Query($args);
+                            <!-- Right Column: Featured News and Grid -->
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <!-- Featured News -->
+                                    <div class="col-12 mb-4">
+                                        <?php
+                                        $post_count = 0;
+                                        while ($good_life_query->have_posts()): $good_life_query->the_post();
+                                            $post_count++;
+                                            if ($post_count === 1): // First post as featured news
+                                                $news_group = get_field('news_hero'); // Get the 'News' group
+                                                $news_image = isset($news_group['news_image']) ? $news_group['news_image'] : null;
+                                                $news_sub_headline = isset($news_group['sub_headline']) ? $news_group['sub_headline'] : '';
+                                        ?>
+                                                <div class="card border-0 shadow-lg h-100 position-relative">
+                                                    <!-- News Image -->
+                                                    <?php if ($news_image): ?>
+                                                        <img src="<?php echo esc_url($news_image['url']); ?>" alt="<?php the_title(); ?>" class="card-img" style="object-fit: cover; height: 100%; width: 100%;">
+                                                    <?php else: ?>
+                                                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/image/default-image.jpg'); ?>" alt="<?php the_title(); ?>" class="card-img" style="object-fit: cover; height: 100%; width: 100%;">
+                                                    <?php endif; ?>
 
-                            if ($good_life_query->have_posts()):
-                                $post_count = 0; // Counter to track featured vs grid posts
-                                while ($good_life_query->have_posts()): $good_life_query->the_post();
-                                    $post_count++;
-                                    if ($post_count === 1): // First post as featured news
-                            ?>
-                            <!-- Featured News -->
-                            <div class="col-lg-6 mb-4">
-                                <div class="card border-0 shadow-lg h-100">
-                                    <?php  
-                                        $news_group = get_field('news_hero'); // Get the 'News' group
-                                        $news_image = $news_group['news_image'];
-                                        $news_sub_headline = $news_group['sub_headline']; 
-                                    ?>
-                                    <img src="<?php echo esc_url($news_image['url']); ?>" class="card-img-top" style="object-fit: cover; height: 100%;">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?php the_title(); ?></h5>
-                                        <p class="card-text"><?php echo esc_html($news_sub_headline); ?></p>
-                                        <p class="text-muted mb-2"><?php echo get_the_date(); ?></p>
-                                        <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-dark">Read More</a>
+                                                    <!-- Overlay Content -->
+                                                    <div class="card-overlay position-absolute bottom-0 start-0 w-100 p-4" style="background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%); color: #fff;">
+                                                        <h5 class="card-title mb-2"><?php the_title(); ?></h5>
+                                                        <p class="card-text mb-3"><?php echo esc_html($news_sub_headline); ?></p>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p class="mb-0" style="color: rgba(255, 255, 255, 0.7);"><?php echo get_the_date(); ?></p>
+                                                            <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-light">Read More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        <?php
+                                            endif;
+                                        endwhile;
+                                        ?>
+                                    </div>
+
+                                    <!-- Grid of 3 Cards -->
+                                    <div class="row w-100 m-0 p-0">
+                                        <?php
+                                        $post_count = 0; // Reset counter for grid posts
+                                        while ($good_life_query->have_posts()): $good_life_query->the_post();
+                                            $post_count++;
+                                            if ($post_count > 1 && $post_count <= 4): // Remaining posts as grid news
+                                                $news_group = get_field('news_hero'); // Get the 'News' group
+                                                $news_image = isset($news_group['news_image']) ? $news_group['news_image'] : null;
+                                                $news_sub_headline = isset($news_group['sub_headline']) ? $news_group['sub_headline'] : '';
+                                        ?>
+                                                <div class="col-md-4 mb-4">
+                                                    <div class="card border-0 shadow-lg h-100 position-relative card-fixed-height">
+                                                        <!-- News Image -->
+                                                        <?php if ($news_image): ?>
+                                                            <img src="<?php echo esc_url($news_image['url']); ?>" alt="<?php the_title(); ?>" class="card-img-top" style="object-fit: cover; height: 200px; width: 100%;">
+                                                        <?php else: ?>
+                                                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/image/default-image.jpg'); ?>" alt="<?php the_title(); ?>" class="card-img-top" style="object-fit: cover; height: 200px; width: 100%;">
+                                                        <?php endif; ?>
+
+                                                        <!-- Content -->
+                                                        <div class="card-body">
+                                                            <h5 class="card-title mb-2"><?php the_title(); ?></h5>
+                                                            <p class="card-text mb-3"><?php echo esc_html($news_sub_headline); ?></p>
+                                                            <p class="mb-0" style="color: rgba(0, 0, 0, 0.7);"><?php echo get_the_date(); ?></p>
+                                                            <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-primary mt-2">Read More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        <?php
+                                            endif;
+                                        endwhile;
+                                        ?>
                                     </div>
                                 </div>
                             </div>
-                            <?php else: // Remaining posts as grid news ?>
-                            <div class="col-md-6 mb-4">
-                                <div class="card border-0 shadow-lg">
-                                    <?php  
-                                        $news_group = get_field('news_hero'); // Get the 'News' group
-                                        $news_image = $news_group['news_image']; 
-                                        $news_sub_headline = $news_group['sub_headline']; 
-                                    ?>
-                                    <img src="<?php echo esc_url($news_image['url']); ?>" alt="<?php the_title(); ?>" class="card-img-top" style="object-fit: cover; height: 250px;">
-                                    <div class="card-body">
-                                        <h6 class="card-title"><?php the_title(); ?></h6>
-                                        <p class="card-text"><?php echo esc_html($news_sub_headline); ?></p>
-                                        <p class="text-muted mb-2"><?php echo get_the_date(); ?></p>
-                                        <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-dark">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                                    endif;
-                                endwhile;
-                                wp_reset_postdata();
-                            else:
-                            ?>
-                            <p class="text-center">No news available at the moment.</p>
-                            <?php endif; ?>
                         </div>
                     </div>
                 </section>
