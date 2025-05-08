@@ -42,6 +42,24 @@ $good_life_query = new WP_Query($args);
                     <div class="title-wrapper-heading position-relative" style="z-index: 1;">
                         <h1><?php echo esc_html($hero_title); ?></h1>
                     </div>
+                </section> 
+                 
+                  <!-- Map Section -->
+                  <section class="map-section py-5">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <!-- Left Column: Content -->
+                            <div class="col-lg-6">
+                                <h2>Our Locations</h2>
+                                <p>Explore our properties across the Philippines. Find the perfect location for your dream home.</p>
+                            </div>
+
+                            <!-- Right Column: Map Image -->
+                            <div class="col-lg-6 text-center">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/map.png" alt="Philippines Map" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
 
@@ -118,12 +136,6 @@ $good_life_query = new WP_Query($args);
                         endforeach;
                         ?>                                       
                     </div>
-                </section>
-
-
-                <!-- Map Section -->
-                <section>
-
                 </section>
 
     <?php 
