@@ -50,7 +50,7 @@ $good_life_query = new WP_Query($args);
                         <div class="row align-items-center">
                             <!-- Left Column: Content -->
                             <div class="col-lg-6">
-                                <h2 style="font-size: 90px; ">Our Locations</h2>
+                                <h1>Building a nation of homeowners</h1>
                                 <p>Explore our properties across the Philippines. Find the perfect location for your dream home.</p>
                             </div>
 
@@ -75,7 +75,7 @@ $good_life_query = new WP_Query($args);
                 <!-- Featured Properties Section -->
                 <section class="feature-section">
                     <div class="feature-wrapper">
-                        <h1>Featured Properties</h1>
+                        <h1>Experience living the good life</h1>
                         <p>Find the best home for your lifestyle among our selection of premium residential condominiums.</p>
                     </div>
 

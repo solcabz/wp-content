@@ -28,6 +28,26 @@
                         <button>SUBMIT</button>
                     </form>
                 </div>
+                <div class="sitemap-warpper">
+                    <?php
+                        $menu = wp_nav_menu([
+                            'theme_location' => 'secondary',
+                            'container'      => false,  // Remove the <nav> container
+                            'menu_class'     => 'nav-links-footer', // Set class for <ul>
+                            'fallback_cb'    => false, // Avoids showing a default menu if none is assigned
+                            'echo'           => false  // Get the menu as a string
+                        ]);
+
+                        // Force class on <ul> if not applied
+                        if ($menu) {
+                            $menu = preg_replace('/<ul(.*?)>/', '<ul class="sitemap"$1>', $menu, 1);
+                        } else {
+                            $menu = '<ul class="nav-links"><li><a href="' . esc_url(home_url('/')) . '">Home</a></li></ul>'; // Added fallback menu
+                        }
+
+                        echo $menu;
+                    ?>
+                </div>
             </div>
         </div>
         <div>

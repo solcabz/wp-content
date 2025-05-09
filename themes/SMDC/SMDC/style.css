@@ -1,0 +1,68 @@
+/SMDC/SMDC/style.css
+
+/*
+Theme Name: SMDC
+Theme URI: http://example.com/smdc
+Author: Your Name
+Author URI: http://example.com
+Description: A WordPress theme for displaying properties categorized under ECO, HRB, and MRB.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: properties, real estate, responsive
+*/
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+.category-title {
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+.property {
+    border: 1px solid #ccc;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.property img {
+    max-width: 100%;
+    height: auto;
+}
+
+.property-title {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.property-description {
+    font-size: 1em;
+    color: #555;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}

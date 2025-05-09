@@ -41,6 +41,7 @@
     width:348px;
     height: 58px;
     border: 1px solid #F1F0EF;
+    border-radius: 8px;
     background: none;
     color: white;
     cursor: pointer;
@@ -87,6 +88,7 @@
     width: 480px;
     height: 60px;
     background: #fff;
+    border-radius: 8px;
 }
 
 .form-news form input {
@@ -95,6 +97,7 @@
     padding-left: 10px;
     outline: none;
     border: none;
+    border-radius: 8px 0px 0px 8px;
 }
 .form-news form button{
     height: 100%;
@@ -104,6 +107,7 @@
     transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
     font-family: "SansCondFont", sans-serif;
     cursor: pointer;
+    border-radius: 0px 8px 8px 0px;
 }
 
 .form-news form button:hover{
@@ -123,6 +127,51 @@
     padding: 10px 25px;
     color: white;
     width: 100%;
+}
+
+/* Navigation sitemap */
+.sitemap {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-rows: max-content;
+    grid-template-rows: repeat(3, auto); /* 3 rows max */
+    gap: 10px 40px;
+    padding: 20px;
+    overflow: hidden;
+    max-height: none; /* Let the grid handle layout instead of height limiting */
+}
+
+.sitemap > li {
+    list-style: none;
+    margin: 0;
+}
+
+.sitemap-warpper{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+}
+
+.sitemap a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #fff;
+    transition: color 0.3s;
+    position: relative;
+    font-family: "SansCondFont", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.sitemap a:hover {
+    color: #0073e6;
+}
+
+/* Hover Effect */
+.nav-links-footer2 li a:hover {
+    color: #8494db;
 }
 
 /* Navigation Links */
