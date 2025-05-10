@@ -1,66 +1,79 @@
 <section class="awards-listing">
     <h1>Awards and Citations</h1>
     <p>Explore our achievements and recognitions.</p>
-    
-    <?php if ( have_rows('award_groups') ): ?>
-        <div class="tabs">
-            <ul class="tab-titles">
-                <?php while ( have_rows('award_groups') ): the_row(); ?>
-                    <li class="tab-title" onclick="showTabContent(this)">
-                        <?php echo esc_html(get_sub_field('award_group_title')); ?>
-                    </li>
-                <?php endwhile; ?>
-            </ul>
-            
-            <?php
-            $current_tab = isset($_GET['tab']) ? intval($_GET['tab']) : 0;
-            $current_page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 
-            // Ensure the correct tab and page are processed
-            $tab_index = 0;
-            while (have_rows('award_groups')): the_row();
-                if ($tab_index === $current_tab) {
-                    // Process awards for the current tab
-                    $awards = [];
-                    while (have_rows('awards')): the_row();
-                        $awards[] = [
-                            'award_year' => get_sub_field('award_year'),
-                            'award_title' => get_sub_field('award_title'),
-                            'award_description' => get_sub_field('award_description'),
-                            'awarded_by' => get_sub_field('awarded_by'),
-                            'hover_image' => get_sub_field('hover_image'),
-                        ];
-                    endwhile;
+    <?php if (have_rows('award_groups')): ?>
+        <ul class="tab-titles">
+            <?php $group_index = 0; ?>
+            <?php while (have_rows('award_groups')): the_row(); ?>
+                <li class="tab-title<?php echo $group_index === 0 ? ' active' : ''; ?>" onclick="showTabContent(this, <?php echo $group_index; ?>)">
+                    <?php echo esc_html(get_sub_field('award_group_title')); ?>
+                </li>
+                <?php $group_index++; ?>
+            <?php endwhile; ?>
+        </ul>
 
-                    // Sort and paginate awards
-                    usort($awards, function ($a, $b) {
-                        return intval($b['award_year']) - intval($a['award_year']);
-                    });
+        <div class="tab-contents">
+            <?php $group_index = 0; ?>
+            <?php while (have_rows('award_groups')): the_row(); ?>
+                <div class="tab-content<?php echo $group_index === 0 ? ' active' : ''; ?>">
+                    <div class="awards-wrapper">
+                        <?php if (have_rows('awards')): ?>
+                            <?php 
+                            $awards = [];
+                            while (have_rows('awards')): the_row();
+                                $awards[] = [
+                                    'award_year' => get_sub_field('award_year'),
+                                    'award_title' => get_sub_field('award_title'),
+                                    'award_description' => get_sub_field('award_description'),
+                                    'awarded_by' => get_sub_field('awarded_by'),
+                                    'hover_image' => get_sub_field('hover_image'),
+                                ];
+                            endwhile;
 
-                    $awards_per_page = 10;
-                    $total_awards = count($awards);
-                    $total_pages = ceil($total_awards / $awards_per_page);
-                    $start_index = ($current_page - 1) * $awards_per_page;
-                    $awards_to_display = array_slice($awards, $start_index, $awards_per_page);
+                            // Split awards into chunks of 10
+                            $chunks = array_chunk($awards, 10);
+                            foreach ($chunks as $chunk_index => $chunk): ?>
+                                <div class="award-container awards" data-page-index="<?php echo $chunk_index; ?>" style="<?php echo $chunk_index === 0 ? '' : 'display: none;'; ?>">
+                                    <?php foreach ($chunk as $award): ?>
+                                        <div class="award-item">
+                                            <div class="award-content">
+                                                <div>
+                                                    <p class="award-year"><?php echo esc_html($award['award_year']); ?></p>
+                                                    <h4 class="award-title"><?php echo esc_html($award['award_title']); ?></h4>
+                                                    <p class="award-description"><?php echo esc_html($award['award_description']); ?></p>
+                                                </div>
+                                                <div class="lower-content">
+                                                    <p class="awarded-by">AWARDED BY</p>
+                                                    <p class="awarded-by1"><?php echo esc_html($award['awarded_by']); ?></p>
+                                                </div>
+                                            </div>
+                                            <?php if (!empty($award['hover_image'])): ?>
+                                                <div class="hover-image">
+                                                    <img src="<?php echo esc_url($award['hover_image']['url']); ?>" alt="<?php echo esc_attr($award['hover_image']['alt']); ?>">
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No awards found for this group.</p>
+                        <?php endif; ?>
+                    </div>
 
-                    // Output the awards for the current tab and page
-                    include locate_template('templates/awards-content.php');
-                    break;
-                }
-                $tab_index++;
-            endwhile;
-            ?>
-
+                    <!-- Pagination Controls -->
+                    <?php if (count($chunks) > 1): ?>
+                        <div class="pagination-controls">
+                            <button class="prev-page" onclick="changePage(this, -1)" disabled>Previous</button>
+                            <button class="next-page" onclick="changePage(this, 1)">Next</button>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php $group_index++; ?>
+            <?php endwhile; ?>
         </div>
     <?php else: ?>
-        <p>Debug: No award groups found. Ensure data is entered in the WordPress admin.</p>
+        <p>No award groups found. Please add them in the WordPress admin.</p>
     <?php endif; ?>
 </section>
-
-<pre>
-    <?php
-   // echo 'Current Tab: ' . $current_tab . '<br>';
-  //  echo 'Current Page: ' . $current_page . '<br>';
-  //  echo 'Awards to Display: ' . print_r($awards_to_display, true);
-    ?>
-</pre>

@@ -63,11 +63,27 @@
     visibility: visible;
 }
 
+.award-container {
+    margin-bottom: 20px;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.pagination-controls button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
 .awards {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 20px;
+    justify-items: center;
 }
 
 .award-item {
@@ -83,37 +99,6 @@
 
 .award-item:hover {
     transform: translateY(-5px);
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    cursor: pointer;
-}
-
-.pagination a {
-    margin: 0 5px;
-    padding: 5px 8 px;
-    text-decoration: none;
-    border: 1px solid #ccc;
-    color: #333;
-    font-size: 18px;
-}
-
-.pagination a.current {
-    background-color: #333;
-    color: #fff;
-    border-color: #333;
-}
-
-.pagination a:hover {
-    background-color: #f0f0f0;
-}
-
-
-.page-number{
-    border-radius: 25px;
 }
 
 .award-content {
@@ -193,6 +178,28 @@
 .award-item:hover .hover-image {
     opacity: 1;
 }
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.pagination-controls button {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #0073aa;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+}
+
+.pagination-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
 
 /* Main section */
 .goodlife-section {
