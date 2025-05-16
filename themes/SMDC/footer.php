@@ -88,45 +88,45 @@
                
             </div>
         </div>
-       <div class="social-menu">
-            <ul>
-                <?php 
-                // Define social media platforms and their respective options
-                $social_media = [
-                    'facebook' => [
-                        'link' => get_option('facebook_link'),
-                        'icon' => get_option('facebook_icon')
-                    ],
-                    'instagram' => [
-                        'link' => get_option('instagram_link'),
-                        'icon' => get_option('instagram_icon')
-                    ],
-                    'twitter' => [
-                        'link' => get_option('twitter_link'),
-                        'icon' => get_option('twitter_icon')
-                    ],
-                    'youtube' => [
-                        'link' => get_option('youtube_link'),
-                        'icon' => get_option('youtube_icon')
-                    ],
-                    'linkedin' => [
-                        'link' => get_option('linkedin_link'),
-                        'icon' => get_option('linkedin_icon')
-                    ]
-                ];
+        <div class="social-menu">
+                <ul>
+                    <?php 
+                    // Define social media platforms and their respective options
+                    $social_media = [
+                        'facebook' => [
+                            'link' => get_option('facebook_link'),
+                            'icon' => get_option('facebook_icon')
+                        ],
+                        'instagram' => [
+                            'link' => get_option('instagram_link'),
+                            'icon' => get_option('instagram_icon')
+                        ],
+                        'twitter' => [
+                            'link' => get_option('twitter_link'),
+                            'icon' => get_option('twitter_icon')
+                        ],
+                        'youtube' => [
+                            'link' => get_option('youtube_link'),
+                            'icon' => get_option('youtube_icon')
+                        ],
+                        'linkedin' => [
+                            'link' => get_option('linkedin_link'),
+                            'icon' => get_option('linkedin_icon')
+                        ]
+                    ];
 
-                // Loop through each social media platform and display the link and icon if available
-                foreach ($social_media as $platform => $data) {
-                    if (!empty($data['link']) && !empty($data['icon'])) {
-                        echo '<li>';
-                        echo '<a href="' . esc_url($data['link']) . '" target="_blank">';
-                        echo '<img src="' . esc_url($data['icon']) . '" alt="' . esc_attr(ucwords($platform)) . ' Icon" class="social-icon">';
-                        echo '</a>';
-                        echo '</li>';
+                    // Loop through each social media platform and display the link and icon if available
+                    foreach ($social_media as $platform => $data) {
+                        if (!empty($data['link']) && !empty($data['icon'])) {
+                            echo '<li>';
+                            echo '<a href="' . esc_url($data['link']) . '" target="_blank">';
+                            echo '<img src="' . esc_url($data['icon']) . '" alt="' . esc_attr(ucwords($platform)) . ' Icon" class="social-icon">';
+                            echo '</a>';
+                            echo '</li>';
+                        }
                     }
-                }
-                ?>
-            </ul>
-        </div>
+                    ?>
+                </ul>
+            </div>
       
 </footer>

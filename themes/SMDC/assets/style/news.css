@@ -1,18 +1,27 @@
 .news-banner {
-    height: 60dvh;
+    height: 100dvh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .news-heading {
+    display: flex; /* Enable flexbox */
+    flex-direction: column;
+    justify-content: center;
+    align-items: start; /* Center content vertically */
+    padding-left: 50px; /* Add padding to keep text aligned to the left */
+    padding-top: 50px;
     color: #ffffff;
+    height: 100%;
 }
 
 .news-heading h1{
     font-size: 98px;
+    text-shadow:  2px 4px 4px #000000;
 }
 
 .news-heading h5{
     font-size: 30px;
+    text-shadow: 2px 4px 4px #000000;
 }

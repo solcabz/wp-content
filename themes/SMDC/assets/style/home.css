@@ -37,8 +37,8 @@
 }
 
 .map-section{
-    background: #363636;
-    color: #ffffff;
+    background-color: #f8f9fa;
+    color: #f8f9fa;
 }
 
 .map-container {
@@ -48,7 +48,7 @@
 .map-section h1{
     font-size: 80px;
     font-family: 'smFontLight', sans-serif;
-    color: #ffffff;
+    color: #001233;
 }
 
 .map-section p{
@@ -63,7 +63,7 @@
     justify-content: center;
     text-align: center;
     z-index: 10;
-    color: #fff;
+    color: #f8f9fa;
     font-size: 14px;
     background: #363636; /* Dark background for labels */
     padding: 5px 10px;
@@ -82,8 +82,8 @@
 
 /* featured */
 .feature-section{
-    background: #363636;
-    color: #ffffff;
+    background: #001233;
+    color: #f8f9fa;
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -111,7 +111,7 @@
 
 .feature-container{
     display: flex;
-    align-items: center;
+    align-items: flex-start ;
     justify-content: space-evenly;
     gap: 15px;
     width: 100%;
@@ -127,19 +127,35 @@
     width: 100%;
     text-align: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .feature-title p{
     width: 225px;
+    font-size: 4;
 }
 
 .feature-item {
     position: relative;
-    width: 550px; /* Adjust as needed */
+    width: 500px; /* Adjust as needed */
+    height: 500px;
     overflow: hidden;
     border-radius: 8px;
+    opacity: 0;
+}
+
+.feature-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75)); /* Black gradient */
+    z-index: 1; /* Ensure it appears behind content */
+    pointer-events: none; /* Prevent interaction */
 }
 
 .feature-img {
@@ -148,16 +164,26 @@
     display: block;
     object-fit: cover;
     /* Fade effect at the bottom */
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0));
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0));
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0));
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0));
 }
 
+.feature-img2{
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for centering */
+    z-index: 2; /* Ensure it appears in front of the hero image */
+    width: 280px; /* Adjust size as needed */
+    height: 280px; /* Adjust size as needed */
+    object-fit: contain; /* Maintain aspect ratio */
+}
 .feature-item-info {
     position: absolute;
     bottom: 0;
     left: 0;
     padding: 15px;
-    color: white;
+    color: #f8f9fa;
     z-index: 2;
     text-align: left;
 }
@@ -195,13 +221,13 @@
 
 .quote-section h1{
     font-family: 'smFontLight', sans-serif;
-    color: #ffffff;
+    color: #f8f9fa;
     font-size: 80px;
 }
 
 .quote-section p{
     font-family: 'smFontLight', sans-serif;
-    color: #ffffff;
+    color: #f8f9fa;
     font-size: 24px;
     width: 640px;
 }
@@ -221,7 +247,7 @@
 }
 
 .quote-item-col label{
-    color: #F1F0EF;
+    color: #f8f9fa;
 }
 
 .quote-item-col input, .quote-item-col select{
@@ -233,7 +259,7 @@
     width: 216px;
     height: 62px;
     background: #363636;
-    color: #F1F0EF;
+    color: #f8f9fa;
     border: none;
     transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
     font-family: "SansCondFont", sans-serif;
@@ -246,16 +272,99 @@
     background: #0030FF;
 }
 
+/* News Section Styling */
+.news-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .news-title{
+    color: #001233;
     font-size: 80px;
+    font-family: 'smFontLight', sans-serif;
+}
+
+.container-news{
+    width: 85%;
+}
+
+/* Carousel Wrapper */
+.news-carousel-wrapper {
+    width: 85%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+.news-carousel-track-wrapper {
+    overflow: hidden;
+    width: 100%;
+    padding: 0 4px;
+}
+
+.news-carousel-track {
+    display: flex;
+    justify-content: flex-start; /* Center the track */
+    align-items: center;
+    gap: 55px; /* Reduced gap */
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+}
+
+.news-carousel-track a{
+    text-decoration: none;
+}
+
+.news-carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Reduced gap */
+    transition: transform 0.5s ease-in-out;
+}
+
+.news-card{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+    width: 500px;
+    flex-shrink: 0;
+}
+
+.news-temp{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background: #001233;
+    width: 338px;
+    height: 40px;
+    border-radius: 0 0 50px 0;
+    color: #f8f9fa;
+    padding: 0 10px;
+    flex-shrink: 0;
+}
+
+.news-temp p{
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
 }
 
 .news-btn{
     display: flex;
+    font-size:  24px;
     width: 216px;
     height: 62px;
-    background: #363636;
-    color: #F1F0EF;
+    color: #001233;
     justify-content: center;
     text-decoration: none;
     align-items: center;
@@ -265,38 +374,101 @@
     cursor: pointer;
     text-transform: uppercase;
     border-radius: 8px;
+    gap: 5px;
 }
 
-.news-btn:hover{
-    background: #0030FF;
+.news-btn svg{
+    display: flex;
+    fill: #001233;
 }
 
-/* Set a fixed height for the news cards */
-.news-section .card {
-    width: 100%; /* Ensure responsiveness */ 
-    height: 400px; /* Adjust the height as needed */
-    margin: 0 auto; /* Center the card */
-}
-
-.news-section .card-img {
-    object-fit: cover;
-    height: 100%; /* Ensure the image fills the card */
+.news-content{
     width: 100%;
 }
 
-.news-section .card-overlay {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
-    color: #fff;
+.news-image-wrapper img{
+    width: 100%;
+    height: 450px;
+    border-radius: 8px;
+    object-fit: cover;
 }
 
-.card-fixed-height {
-    height: 450px; /* Set a fixed height for the cards */
+.card-title{
+    color: #001233;
+    height: 150px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Ensures content is spaced properly */
+    align-items: flex-start;
 }
-.card-fixed-height .card-body {
-    flex-grow: 1; /* Ensures the body takes up available space */
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.news-image-wrapper {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Hover Overlay */
+.news-image-wrapper .hover-overlay {
+    position: absolute;
+    top: 0;
+    left: -100%; /* Initially hidden */
+    width: 100%;
+    height: 100%;
+    background: #001233ee;
+    transition: left 0.5s ease-in-out; /* Smooth slide-in effect */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 15px;;
+}
+
+.news-image-wrapper:hover .hover-overlay {
+    left: 0; /* Slide in on hover */
+    border-radius: 8px;
+}
+
+.hover-overlay p {
+    color: #fff;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0;
+}
+
+/* Carousel Navigation Buttons */
+.carousel-nav {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-50%);
+    background: #001233;
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px 15px;
+    z-index: 10;
+    transition: background 0.3s ease;
+    border-radius: 5px;
+}
+
+.carousel-nav:hover {
+    background: #000f73;
+}
+
+.carousel-nav.prev {
+    left: 0;
+}
+
+.carousel-nav.next {
+    right: 0;
 }
 
 /* Responsive Styles */
@@ -315,9 +487,14 @@
         padding: 15px;
     }
 
+    .news-carousel{
+        flex-direction: column;
+        gap: 15px;
+    }
+
     .quote-section p{
         font-family: 'smFontLight', sans-serif;
-        color: #ffffff;
+        color: #f8f9fa;
         font-size: 18px;
         width: 100%;
         padding: 15px;

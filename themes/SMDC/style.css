@@ -27,3 +27,135 @@
     box-sizing: border-box;
 }
 
+/* Keyframes for fade-in-up animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px); /* Start slightly below */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Move to original position */
+    }
+}
+
+/* Keyframes for fade-in-down animation */
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px); /* Start slightly above */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Move to original position */
+    }
+}
+
+/* Keyframes for fade-in-from-right animation */
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(50px); /* Start slightly to the right */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0); /* Move to original position */
+    }
+}
+
+/* Keyframes for fade-in-from-left animation */
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px); /* Start slightly to the left */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0); /* Move to original position */
+    }
+}
+
+/* Global class for fade-in-up animation */
+.animate-on-scroll-up {
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Start slightly below */
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.animate-on-scroll-up.animate {
+    animation: fadeInUp 1s ease-out forwards; /* Trigger the fade-in-up animation */
+}
+
+/* Global class for fade-in-down animation */
+.animate-on-scroll-down {
+    opacity: 0; /* Start hidden */
+    transform: translateY(-50px); /* Start slightly above */
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.animate-on-scroll-down.animate {       
+    animation: fadeInDown 1s ease-out forwards; /* Trigger the fade-in-down animation */
+}
+
+/* Global class for fade-in-right animation */
+.animate-on-scroll-right{
+    opacity: 0; /* Start hidden */
+    transform: translateX(50px); /* Start slightly to the right */
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.animate-on-scroll-right.animate {
+    animation: fadeInRight 1s ease-out forwards; /* Trigger the fade-in-right animation */
+}
+
+/* Add delays for sequential animations */
+.row .col-md-4:nth-child(1) .animate-on-scroll-right {
+    animation-delay: 0s; /* First card starts immediately */
+}
+
+.row .col-md-4:nth-child(2) .animate-on-scroll-right {
+    animation-delay: 0.3s; /* Second card starts after 0.3s */
+}
+
+.row .col-md-4:nth-child(3) .animate-on-scroll-right {
+    animation-delay: 0.6s; /* Third card starts after 0.6s */
+}
+
+/* Global class for fade-in-left animation */
+.animate-on-scroll-left {
+    opacity: 0; /* Start hidden */
+    transform: translateX(-50px); /* Start slightly to the left */
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.animate-on-scroll-left.animate {
+    animation: fadeInLeft 1s ease-out forwards; /* Trigger the fade-in-left animation */
+}
+
+/* Fade-out animation */
+.fade-out {
+    animation: fadeOut 0.3s forwards;
+}
+
+/* Fade-in animation */
+.fade-in {
+    animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

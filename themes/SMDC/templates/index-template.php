@@ -9,8 +9,10 @@
 // Define the query for the "good_life" post type
 $args = [
     'post_type' => 'good_life', // Replace with your custom post type slug
-    'posts_per_page' => 4, // Number of posts to fetch
+    'posts_per_page' => 6, // Number of posts to fetch
     'post_status' => 'publish', // Only fetch published posts
+    'orderby' => 'date',
+    'order' => 'DESC',
 ];
 $good_life_query = new WP_Query($args);
 ?>
@@ -115,26 +117,40 @@ $good_life_query = new WP_Query($args);
                         
                         <div class="feature-wrapper-item">
                             <div class="feature-title">
-                                <p><?php echo esc_html($segment_name); ?></p>
+                                <?php 
+                                    // Split the segment name and abbreviation
+                                    $segment_parts = explode('(', $segment_name); // Split by the opening parenthesis
+                                    $full_name = trim($segment_parts[0]); // Get the full name and trim any whitespace
+                                    $abbreviation = isset($segment_parts[1]) ? rtrim($segment_parts[1], ')') : ''; // Get the abbreviation and remove the closing parenthesis
+                                ?>
+                                <h3><?php echo esc_html($full_name); ?></h3>
+                                <?php if (!empty($abbreviation)): ?>
+                                    <p class="segment-abbreviation">( <?php echo esc_html($abbreviation); ?> )</p>
+                                <?php endif; ?>
                             </div>
                             <?php while ($query->have_posts()): $query->the_post(); ?>
-                                <a href="<?php the_permalink(); ?>">
-                                    <div class="feature-item">
+                               <a href="<?php the_permalink(); ?>">
+                                    <div class="feature-item animate-on-scroll-up">
                                         <?php 
-                                            // Fetch the Hero Image from the ACF group field
+                                            // Fetch the Hero group field
                                             $hero_group = get_field('hero'); // Get the 'hero' group
-                                            $hero_image = $hero_group['hero_image']; // Access the 'hero_image' subfield
+
+                                            // Access the 'hero_image' subfield
+                                            $hero_image = isset($hero_group['hero_image']) ? $hero_group['hero_image'] : null;
+
+                                            // Fetch the White Icon field
+                                            $white_icon = get_field('white_icon');
                                         ?>
-                                        <img src="<?php echo esc_url($hero_image['url']); ?>" alt="Feature Image" class="img-fluid feature-img zoom-in">
-                                        <div class="feature-item-info">
-                                            <h4><?php the_title(); ?></h4>
-                                            <?php 
-                                                // Fetch the About Property group field
-                                                $about_property = get_field('about_property'); // Get the 'about_property' group
-                                                $property_description = !empty($about_property['description']) ? $about_property['description'] : 'No description available.';
-                                            ?>
-                                            <p class="property-description"> <?php echo esc_html($property_description); ?></p>
-                                        </div>
+
+                                        <!-- Display the Hero Image -->
+                                        <?php if ($hero_image): ?>
+                                            <img src="<?php echo esc_url($hero_image['url']); ?>" alt="Feature Image" class="img-fluid feature-img zoom-in">
+                                        <?php endif; ?>
+
+                                        <!-- Display the White Icon -->
+                                        <?php if ($white_icon): ?>
+                                            <img src="<?php echo esc_url($white_icon['url']); ?>" alt="White Icon" class="img-fluid feature-img2">
+                                        <?php endif; ?>
                                     </div>
                                 </a>
                             <?php endwhile; ?>
@@ -232,90 +248,64 @@ $good_life_query = new WP_Query($args);
                 
                 <!-- Latest SMDC News Section -->
                 <section class="news-section py-5">
-                    <div class="container">
-                        <div class="row">
-                            <!-- Left Column: Title and Button -->
-                            <div class="col-lg-4 d-flex flex-column justify-content-Start align-items-start">
-                                <h1 class="news-title">Latest News & Updates</h1>
-                                <a href="<?php echo get_post_type_archive_link('good_life'); ?>" class="news-btn">View All</a>
+                            <!-- Title and Button -->
+                            <div class="container-news row-lg d-flex  justify-content-between align-items-center">
+                                <h1 class="news-title animate-on-scroll-left">Latest News & Updates</h1>
+                                <a href="<?php echo get_post_type_archive_link('good_life'); ?>" class="news-btn">
+                                    Read All
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256"><path d="M141.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L124.69,128,50.34,53.66A8,8,0,0,1,61.66,42.34l80,80A8,8,0,0,1,141.66,133.66Zm80-11.32-80-80a8,8,0,0,0-11.32,11.32L204.69,128l-74.35,74.34a8,8,0,0,0,11.32,11.32l80-80A8,8,0,0,0,221.66,122.34Z"></path></svg>
+                                </a>
                             </div>
 
-                            <!-- Right Column: Featured News and Grid -->
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <!-- Featured News -->
-                                    <div class="col-12 mb-4">
+                            <!-- Carousel Wrapper -->
+                            <div class="news-carousel-wrapper position-relative">
+                                <!-- Navigation Buttons -->
+                                <button class="carousel-nav prev">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#f8f9fa" viewBox="0 0 256 256">
+                                        <path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path>
+                                    </svg>
+                                </button>
+                                <div class="news-carousel-track-wrapper">
+                                    <div class="news-carousel-track">
                                         <?php
-                                        $post_count = 0;
                                         while ($good_life_query->have_posts()): $good_life_query->the_post();
-                                            $post_count++;
-                                            if ($post_count === 1): // First post as featured news
-                                                $news_group = get_field('news_hero'); // Get the 'News' group
-                                                $news_image = isset($news_group['news_image']) ? $news_group['news_image'] : null;
-                                                $news_sub_headline = isset($news_group['sub_headline']) ? $news_group['sub_headline'] : '';
+                                            $news_group = get_field('news_hero');
+                                            $news_image = isset($news_group['news_image']) ? $news_group['news_image'] : null;
+                                            $news_sub_headline = isset($news_group['sub_headline']) ? $news_group['sub_headline'] : '';
                                         ?>
-                                                <div class="card border-0 shadow-lg h-100 position-relative">
-                                                    <!-- News Image -->
-                                                    <?php if ($news_image): ?>
-                                                        <img src="<?php echo esc_url($news_image['url']); ?>" alt="<?php the_title(); ?>" class="card-img" style="object-fit: cover; height: 100%; width: 100%;">
-                                                    <?php else: ?>
-                                                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/image/default-image.jpg'); ?>" alt="<?php the_title(); ?>" class="card-img" style="object-fit: cover; height: 100%; width: 100%;">
-                                                    <?php endif; ?>
-
-                                                    <!-- Overlay Content -->
-                                                    <div class="card-overlay position-absolute bottom-0 start-0 w-100 p-4" style="background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%); color: #fff;">
-                                                        <h5 class="card-title mb-2"><?php the_title(); ?></h5>
-                                                        <p class="card-text mb-3"><?php echo esc_html($news_sub_headline); ?></p>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0" style="color: rgba(255, 255, 255, 0.7);"><?php echo get_the_date(); ?></p>
-                                                            <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-light">Read More</a>
-                                                        </div>
-                                                    </div>
+                                        <a href="<?php the_permalink(); ?>" class="news-card-link">
+                                            <div class="news-card">
+                                                <div class="news-temp animate-on-scroll-up">
+                                                    <p>#Newsline: Property</p>
                                                 </div>
-                                        <?php
-                                            endif;
-                                        endwhile;
-                                        ?>
-                                    </div>
-
-                                    <!-- Grid of 3 Cards -->
-                                    <div class="row w-100 m-0 p-0">
-                                        <?php
-                                        $post_count = 0; // Reset counter for grid posts
-                                        while ($good_life_query->have_posts()): $good_life_query->the_post();
-                                            $post_count++;
-                                            if ($post_count > 1 && $post_count <= 4): // Remaining posts as grid news
-                                                $news_group = get_field('news_hero'); // Get the 'News' group
-                                                $news_image = isset($news_group['news_image']) ? $news_group['news_image'] : null;
-                                                $news_sub_headline = isset($news_group['sub_headline']) ? $news_group['sub_headline'] : '';
-                                        ?>
-                                                <div class="col-md-4 mb-4">
-                                                    <div class="card border-0 shadow-lg h-100 position-relative card-fixed-height">
-                                                        <!-- News Image -->
-                                                        <?php if ($news_image): ?>
-                                                            <img src="<?php echo esc_url($news_image['url']); ?>" alt="<?php the_title(); ?>" class="card-img-top" style="object-fit: cover; height: 200px; width: 100%;">
-                                                        <?php else: ?>
-                                                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/image/default-image.jpg'); ?>" alt="<?php the_title(); ?>" class="card-img-top" style="object-fit: cover; height: 200px; width: 100%;">
-                                                        <?php endif; ?>
-
-                                                        <!-- Content -->
-                                                        <div class="card-body">
-                                                            <h5 class="card-title mb-2"><?php the_title(); ?></h5>
-                                                            <p class="card-text mb-3"><?php echo esc_html($news_sub_headline); ?></p>
-                                                            <p class="mb-0" style="color: rgba(0, 0, 0, 0.7);"><?php echo get_the_date(); ?></p>
-                                                            <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-primary mt-2">Read More</a>
+                                                <div class="news-content">
+                                                    <div class="card-body">
+                                                        <h1 class="card-title mb-2 animate-on-scroll-left"><?php the_title(); ?></h1>
+                                                        <p class="mb-0 animate-on-scroll-left " style="color: rgba(0, 0, 0, 0.7);"><?php echo get_the_date(); ?></p>
+                                                        <div class="news-image-wrapper">
+                                                            <?php if ($news_image): ?>
+                                                                <img src="<?php echo esc_url($news_image['url']); ?>" alt="<?php the_title(); ?>" class="card-img-top animate-on-scroll-up">
+                                                            <?php else: ?>
+                                                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/image/default-image.jpg'); ?>" alt="<?php the_title(); ?>" class="card-img-top">
+                                                            <?php endif; ?>
+                                                            <div class="hover-overlay">
+                                                                <p>Read More</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </div>                                        
                                                 </div>
-                                        <?php
-                                            endif;
-                                        endwhile;
-                                        ?>
+                                            </div>
+                                        </a>
+                                        <?php endwhile; ?>
                                     </div>
                                 </div>
+                                <button class="carousel-nav next">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#f8f9fa" viewBox="0 0 256 256">
+                                        <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path>
+                                    </svg>
+                                </button>
                             </div>
-                        </div>
-                    </div>
+
                 </section>
 
     <?php 

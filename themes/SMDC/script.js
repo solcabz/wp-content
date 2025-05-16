@@ -37,9 +37,27 @@ function changePage(button, direction) {
         return;
     }
 
-    // Hide the current page and show the new page
-    awardContainers[currentPageIndex].style.display = 'none';
-    awardContainers[newPageIndex].style.display = 'grid';
+    // Add fade-out animation to the current page
+    const currentContainer = awardContainers[currentPageIndex];
+    currentContainer.classList.add('fade-out');
+
+    // Wait for the fade-out animation to complete before switching pages
+    currentContainer.addEventListener('animationend', function handleFadeOut() {
+        currentContainer.style.display = 'none';
+        currentContainer.classList.remove('fade-out');
+        currentContainer.removeEventListener('animationend', handleFadeOut);
+
+        // Show the new page with a fade-in animation
+        const newContainer = awardContainers[newPageIndex];
+        newContainer.style.display = 'grid';
+        newContainer.classList.add('fade-in');
+
+        // Remove the fade-in class after the animation completes
+        newContainer.addEventListener('animationend', function handleFadeIn() {
+            newContainer.classList.remove('fade-in');
+            newContainer.removeEventListener('animationend', handleFadeIn);
+        });
+    });
 
     // Enable/disable pagination buttons
     const prevButton = tabContent.querySelector('.prev-page');
@@ -47,3 +65,48 @@ function changePage(button, direction) {
     prevButton.disabled = newPageIndex === 0;
     nextButton.disabled = newPageIndex === awardContainers.length - 1;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const animatedItems = document.querySelectorAll('.animate-on-scroll-left, .animate-on-scroll-right, .animate-on-scroll-up, .animate-on-scroll-down');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate'); // Add animation class
+                observer.unobserve(entry.target); // Stop observing once animated
+            }
+        });
+    }, {
+        threshold: 0.2 // Trigger when 20% of the element is visible
+    });
+
+    animatedItems.forEach(item => observer.observe(item));
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const track = document.querySelector('.news-carousel-track');
+    const prevBtn = document.querySelector('.carousel-nav.prev');
+    const nextBtn = document.querySelector('.carousel-nav.next');
+    const cards = document.querySelectorAll('.news-card');
+    const cardWidth = cards[0].offsetWidth + 55; // width + gap
+    let currentIndex = 0;
+    const maxIndex = cards.length - 3; // 3 visible at a time
+
+    function updateCarousel() {
+        track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < maxIndex) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+});

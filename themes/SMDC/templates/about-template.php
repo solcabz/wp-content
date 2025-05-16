@@ -29,18 +29,19 @@
     <?php endwhile; ?>
 
     <!-- Include Goodlife and Goodguy templates here -->
-    <?php get_template_part('templates/goodlife', 'section'); ?>
-    <?php get_template_part('templates/goodguy', 'values'); ?>
+    <?php get_template_part('templates/about/goodlife', 'section'); ?>
+    <?php get_template_part('templates/about/goodguy', 'values'); ?>
+     <?php get_template_part('templates/about/story', 'section'); ?>
 
     <?php while ( have_rows('About_Page_Modules') ): the_row(); ?>
         <!-- Awards Listing -->
         <?php if ( get_row_layout() == 'awards_listing' ): ?>
-            <?php get_template_part('templates/about', 'awards'); ?>
+            <?php get_template_part('templates/about/about', 'awards'); ?>
         <?php endif; ?>
     <?php endwhile; ?>
 <?php endif; ?>
             
-<?php get_template_part('templates/form', 'template'); ?>
+<?php get_template_part('templates/about/form', 'template'); ?>
 <?php get_footer(); ?>
 <?php wp_footer(); ?>
 

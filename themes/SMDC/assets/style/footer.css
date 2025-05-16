@@ -52,7 +52,7 @@
 }
 
 .footer-company-info button:hover{
-    background: #0030FF;
+    background: #000f73;
     color: white;
 }
 
@@ -60,7 +60,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .form-news{
@@ -111,7 +111,7 @@
 }
 
 .form-news form button:hover{
-    background: #0030FF;
+    background: #000f73;
     color: #F1F0EF;
 }
 
